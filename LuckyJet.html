@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Jet Hack</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Lilita One Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- Include Roboto Condensed Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #171b24;
+            color: #FFF;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            flex-direction: column;
+        }
+
+        .screen.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        #luckyJetScreen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            background-color: #1C232A;
+            color: #000;
+            text-align: center;
+            width: 80vw;
+            max-width: 18rem;
+        }
+
+        .image-container {
+            position: relative;
+            height: 200px;
+            background-color: #251C46;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Oscillation animation */
+        @keyframes oscillate {
+            0% {
+                transform: translate(-50%, -50%) translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) translateY(-4px) scale(1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) translateY(0) scale(1);
+            }
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            animation: oscillate 2s ease-in-out infinite;
+            transition: transform 2s;
+        }
+
+        #drawResult {
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            color: #944EF5;
+            padding: 5px;
+            font-size: 4rem;
+            font-family: 'Lilita One', cursive;
+        }
+
+        .card-body {
+            padding: 0;
+            flex-grow: 1;
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+            background-color: #1C232A;
+        }
+
+        .card-body2 {
+            flex-direction: column;
+            background-color: #1C232A;
+        }
+
+        .card-body-top {
+            background-color: #1C232A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        #progresSteps {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Center the text */
+    font-family: 'Roboto Condensed', sans-serif;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+        .card-body-top h5 {
+            font-size: 1rem;
+            color: #FFF;
+            margin: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: bold;
+            display: flex;
+        }
+
+        #titleLucky {
+            color: #944EF5;
+        }
+
+        #titleJet {
+            color: #FFFFFF;
+        }
+
+        .full-width-button {
+            width: 100%;
+            height: 100%;
+            display: block;
+            font-size: 1.25rem;
+            text-align: center;
+            border-radius: 0 0 0.25rem 0.25rem;
+            margin: 0;
+            background-color: #00C45D;
+            color: white;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: bold;
+        }
+
+        .full-width-button:hover {
+            background-color: #1C7ED6;
+        }
+
+        .full-width-button:active {
+            background-color: #1864AB;
+        }
+
+        .recommended-amount {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-family: 'Roboto Condensed', sans-serif;
+            text-align: center;
+        }
+
+        .highlight-yellow {
+            color: #FFFF00;
+            text-align: center;
+        }
+
+        .highlight-red {
+            color: #FF0000;
+        }
+
+        .highlight-green {
+            color: #7AD931;
+        }
+
+        .highlight-big {
+            font-size: 1.5em;
+        }
+
+        .centered-text {
+            text-align: center;
+        }
+
+        .close {
+            color: #FFF;
+            font-size: 1.5rem;
+        }
+
+        .close:hover {
+            color: #CCC;
+        }
+
+        /* Timer Styles */
+        .base-timer {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 120px;
+            height: 120px;
+        }
+
+        #app {
+            display: none; /* Ascunde timerul inițial */
+        }
+
+        .base-timer__svg {
+            transform: scaleX(-1);
+        }
+
+        .base-timer__circle {
+            fill: none;
+            stroke: none;
+        }
+
+        .base-timer__path-elapsed {
+            stroke-width: 7px;
+            stroke: grey;
+        }
+
+        .base-timer__path-remaining {
+            stroke-width: 7px;
+            stroke-linecap: round;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            fill-rule: nonzero;
+            stroke: currentColor;
+        }
+
+        .base-timer__path-remaining.green {
+            color: rgb(65, 184, 131);
+        }
+
+        .base-timer__path-remaining.orange {
+            color: orange;
+        }
+
+        .base-timer__path-remaining.red {
+            color: red;
+        }
+
+        .base-timer__label {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #FFF;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        /* Bouncing Animation */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bouncing {
+            animation: bounce 1s infinite;
+        }
+
+        /* Button Press Animation */
+        .button-press {
+            transform: scale(0.95);
+            transition: transform 0.15s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Lucky Jet Screen -->
+    <div id="luckyJetScreen" class="screen active">
+        <div class="card-container">
+            <div class="card">
+                <!-- Top Card Body -->
+            <div class="card-body-top">
+    <h5>
+        <span id="titleLucky">LUCKY</span>
+        <span id="titleJet">JET</span>
+    </h5>
+    <span id="progresSteps">Шаг 1/3</span> <!-- Progress steps -->
+    <button type="button" class="close" aria-label="Close" onclick="window.location.href='Home.html'">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+                <!-- Image Container with Overlay Text -->
+                <div class="image-container">
+                    <!-- Timer -->
+                    <div id="app" class="base-timer"></div>
+                    <!-- Image -->
+                    <img id="luckyJetImage" src="Resources/Lucky-jetPers.png" alt="Lucky Jet Image">
+                </div>
+
+                <!-- Bottom Card Body -->
+                <div class="card-body2">
+                    <p id="outputmessageTMP" class="recommended-amount">Выполните все действия по инструкции, чтобы получить много денег.</p>
+                </div>
+
+                <!-- Bottom Card Body -->
+                <div class="card-body">
+                <button class="btn full-width-button bouncing" id="makeStakeButton" style="display:none;" onclick="window.open('https://1wfqtr.life/v3/lucky-jet-updated?p=hvdq', '_blank')">➡️ СДЕЛАЙ СТАВКУ ⬅️</button>
+
+                    <p id="additionalText" class="recommended-amount highlight-yellow centered-text" style="display:none;">после того, как вы закончите, нажмите кнопку <span class="highlight-big">"готово" ⬇️</span></p>
+                    <button class="btn full-width-button bouncing" id="stakeMakedConfirmeButton" onclick="hack()">Начать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hackStep = 0;
+
+        function hack() {
+            const outputmessageTMP = document.getElementById('outputmessageTMP');
+            const makeStakeButton = document.getElementById('makeStakeButton');
+            const stakeMakedConfirmeButton = document.getElementById('stakeMakedConfirmeButton');
+            const additionalText = document.getElementById('additionalText');
+            const appTimer = document.getElementById('app');
+
+            switch (hackStep) {
+                case 0:
+                    outputmessageTMP.innerHTML = "Выполните все действия по инструкции, чтобы получить <span style='color: red; font-size: 1.5em;'>х35</span>";
+                    makeStakeButton.style.display = "none";
+                    additionalText.style.display = "none";
+                    stakeMakedConfirmeButton.innerHTML = "➡️ НАЧАТЬ ➡️";
+
+                    // Adăugăm animația de bouncing la butonul "Начать"
+                    stakeMakedConfirmeButton.classList.add('bouncing');
+
+                    // Update progress step to Шаг 1/3
+                    progresSteps.innerHTML = "Шаг 1/2";
+                    
+                    hackStep++;
+                    break;
+
+                case 1:
+                                    outputmessageTMP.innerHTML = "Делаем ставку <span style='color: yellow; font-size: 1.5em;'>500₽</span> с коэффициентом <span style='color: yellow; font-size: 1.5em;'>х1.10</span>. За несколько попыток вы получите  <span id='x35' style='color: red; font-size: 1.5em;'>х35</span>";
+                    makeStakeButton.style.display = "block";
+                    additionalText.style.display = "none";
+                    stakeMakedConfirmeButton.style.display = "none";
+
+                    // Afișează și pornește timerul
+                    appTimer.style.display = "block";
+                    startTimer();
+
+                    // Începe interpolarea după ce apare textul
+                    startInterpolation();
+
+                    // Update progress step to Шаг 3/3
+                    progresSteps.innerHTML = "Шаг 2/2";
+                    break;
+
+                default:
+                    outputmessageTMP.innerHTML = "Все шаги выполнены.";
+                    additionalText.style.display = "none";
+                    stakeMakedConfirmeButton.innerHTML = "Завершено";
+                    break;
+            }
+        }
+
+        function startButtonPressAnimation() {
+            const makeStakeButton = document.getElementById('makeStakeButton');
+            const stakeMakedConfirmeButton = document.getElementById('stakeMakedConfirmeButton');
+
+            function pressButton(button) {
+                button.classList.add('button-press');
+                setTimeout(() => {
+                    button.classList.remove('button-press');
+                }, 150); // Durata presării butonului
+            }
+
+            pressButton(makeStakeButton);
+            setTimeout(() => {
+                pressButton(stakeMakedConfirmeButton);
+            }, 1500); // Apasă al doilea buton la 1.5 secunde după primul
+
+            // Reapelați funcția pentru a repeta ciclul
+            setTimeout(() => {
+                startButtonPressAnimation();
+            }, 3000); // Așteaptă 3 secunde pentru a repeta ciclul
+        }
+
+        window.onload = function () {
+            hack();
+        };
+
+        // Timer functionality
+        const FULL_DASH_ARRAY = 188.4;
+        const WARNING_THRESHOLD = 10;
+        const ALERT_THRESHOLD = 5;
+
+        const COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+        };
+
+        const TIME_LIMIT = 1200; // 20 minutes in seconds
+        let timePassed = 0;
+        let timeLeft = TIME_LIMIT;
+        let timerInterval = null;
+        let remainingPathColor = COLOR_CODES.info.color;
+
+        document.getElementById("app").innerHTML = `
+            <div class="base-timer">
+                <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="30"></circle>
+                        <path
+                            id="base-timer-path-remaining"
+                            stroke-dasharray="188.4"
+                            class="base-timer__path-remaining ${remainingPathColor}"
+                            d="
+                                M 50, 50
+                                m -30, 0
+                                a 30,30 0 1,0 60,0
+                                a 30,30 0 1,0 -60,0
+                            "
+                        ></path>
+                    </g>
+                </svg>
+                <span id="base-timer-label" class="base-timer__label">${formatTime(timeLeft)}</span>
+            </div>
+        `;
+
+        function onTimesUp() {
+            clearInterval(timerInterval);
+            localStorage.removeItem('timeLeft');
+            localStorage.removeItem('startTime');
+            timerInterval = null;
+        }
+
+        function startTimer() {
+            if (timerInterval !== null) return; // Prevent multiple starts
+
+            const savedTimeLeft = parseInt(localStorage.getItem('timeLeft'), 10);
+            const savedStartTime = parseInt(localStorage.getItem('startTime'), 10);
+
+            if (!isNaN(savedTimeLeft) && !isNaN(savedStartTime)) {
+                timeLeft = savedTimeLeft;
+                timePassed = TIME_LIMIT - timeLeft;
+            } else {
+                timePassed = 0;
+                timeLeft = TIME_LIMIT;
+                localStorage.setItem('startTime', Date.now());
+            }
+
+            timerInterval = setInterval(() => {
+                timePassed++;
+                timeLeft = TIME_LIMIT - timePassed;
+                localStorage.setItem('timeLeft', timeLeft);
+
+                document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
+
+                if (timeLeft <= 0) {
+                    onTimesUp();
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timePassed = 0;
+            timeLeft = TIME_LIMIT;
+            localStorage.removeItem('timeLeft');
+            localStorage.removeItem('startTime');
+            document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+            setCircleDasharray();
+            setRemainingPathColor(timeLeft);
+            timerInterval = null;
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
+
+            return `${minutes}:${seconds}`;
+        }
+
+        function setRemainingPathColor(timeLeft) {
+            const {
+                alert,
+                warning,
+                info
+            } = COLOR_CODES;
+            const pathRemaining = document.getElementById("base-timer-path-remaining");
+
+            if (timeLeft <= alert.threshold) {
+                pathRemaining.classList.remove(warning.color);
+                pathRemaining.classList.add(alert.color);
+            } else if (timeLeft <= warning.threshold) {
+                pathRemaining.classList.remove(info.color);
+                pathRemaining.classList.add(warning.color);
+            } else {
+                pathRemaining.classList.remove(warning.color, alert.color);
+                pathRemaining.classList.add(info.color);
+            }
+        }
+
+        function calculateTimeFraction() {
+            const rawTimeFraction = timeLeft / TIME_LIMIT;
+            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+        }
+
+        function setCircleDasharray() {
+            const circleDasharray = `${(calculateTimeFraction() * FULL_DASH_ARRAY).toFixed(0)} 188.4`;
+            document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
+        }
+
+        function interpolateValue(startValue, endValue, duration, element) {
+            let startTime = null;
+
+            function animate(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const value = Math.floor(progress * (endValue - startValue) + startValue);
+
+                element.innerHTML = `х${value}`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // După interpolare, aplicăm animația de pulsare
+                    element.style.animation = "pulse 1s infinite";
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        function startInterpolation() {
+            const x35Element = document.getElementById('x35');
+            interpolateValue(0, 35, 2000, x35Element); // Interpolăm de la 0 la 35 în 2 secunde
+        }
+
+        // Stil pentru pulsare
+        const style = document.createElement('style');
+        style.innerHTML = `
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        `;
+        document.head.appendChild(style);
+
+        // Restore the timer state if the page is refreshed
+        const savedTimeLeft = parseInt(localStorage.getItem('timeLeft'), 10);
+        const savedStartTime = parseInt(localstorage.getItem('startTime'), 10);
+        if (!isNaN(savedTimeLeft) && !isNaN(savedStartTime)) {
+            const elapsedTime = Math.floor((Date.now() - savedStartTime) / 1000);
+            timeLeft = savedTimeLeft - elapsedTime;
+            if (timeLeft > 0) {
+                timePassed = TIME_LIMIT - timeLeft;
+                startTimer();
+            } else {
+                onTimesUp();
+            }
+        }
+    </script>
+</body>
+
+</html>
