@@ -3,53 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detectare țară</title>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDPDEFRG2S"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-JDPDEFRG2S');
-    </script>
+    <title>Redirecționare aleatorie</title>
 
     <style>
         body {
             background-color: #171b24;
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        #countryCode {
-            font-size: 2em;
+        #helloMessage {
+            font-size: 3em;
         }
     </style>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          try {
+              // Definim lista de pagini direct în script
+              const pages = [
+                  "luckygames.html",
+                  "luckyspins.html"
+              ];
+
+              console.log('Pages array:', pages);
+
+              // Selectăm o pagină aleatoriu din listă
+              const randomPage = pages[Math.floor(Math.random() * pages.length)];
+
+              console.log('Selected random page:', randomPage);
+
+              // Redirecționăm utilizatorul către pagina aleasă
+              window.location.href = randomPage;
+          } catch (error) {
+              console.error("Error during redirection:", error);
+              document.getElementById('helloMessage').innerText = "An error occurred during redirection.";
+          }
+      });
+    </script>
+
 </head>
 <body>
-    <div id="countryCode">Detecting...</div>
-
-    <script>
-        async function fetchCountryCode() {
-            try {
-                // Folosim un API pentru a obține țara utilizatorului
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                const countryCode = data.country_code;
-
-                // Afișăm codul țării în div-ul central
-                document.getElementById('countryCode').innerText = countryCode;
-            } catch (error) {
-                document.getElementById('countryCode').innerText = "Error detecting country.";
-            }
-        }
-
-        fetchCountryCode();
-    </script>
+    <div id="helloMessage">Loading...</div>
 </body>
 </html>
