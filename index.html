@@ -34,7 +34,6 @@
         }
 
         .btn-success-custom {
-            margin: 5px 0;
             font-family: 'Roboto Condensed', sans-serif;
             font-weight: bold;
             text-transform: uppercase;
@@ -95,17 +94,17 @@
     <div id="panel1" class="container active">
         <!-- Image container -->
         <div class="image-container">
-            <img id="icon-image" src="" alt="FlyWin 777 Icon">
+            <img id="icon-image" src="" alt="Icon">
         </div>
 
         <!-- Text content -->
         <div class="text-content yellow-text">
-            <p id="channel-title">Chanel Title</p>
+            <p id="channel-title">Channel Title</p>
         </div>
         <div class="text-content">
-            <p id="channel-description">Chanel Description</p>
+            <p id="channel-description">Channel Description</p>
         </div>
-        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Chanel Button Text</button>
+        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Channel Button Text</button>
     </div>
 
     <script>
@@ -113,31 +112,46 @@
         const jsonData = {
             "urlLinks": [
                 {
-                    "url": "https://t.me/flywin777",
                     "title": "FlyWin 777 🚀",
-                    "description": "FlyWin 777 is a high-speed rocket game bot offering the best gaming experience.",
+                    "url": "https://t.me/flywin777",
+                    "buttondescription": "🚀 Открой канал 🚀",
+                    "description": "Заявки принимаю моментально🔥Играем вместе 💸⤵️ +500 % по моему промокоду FlyWin777 🚀🚀🚀",
                     "icon": "Resources/icons/FlyWin 777_Icon.jpg"
+                },
+                {
+                    "title": "🚀 Rocket-Queen 👸 | СИГНАЛЫ🚨",
+                    "url": "https://t.me/RocketQueeSignals",
+                    "buttondescription": "👸 Открой канал 👸",
+                    "description": "🟢 Ваш шанс осуществить свою мечту, ежедневные сигналы здесь, действуйте согласно сообщению❗️",
+                    "icon": "Resources/icons/Rocket-Queen_Icon.jpg"
                 }
             ]
         };
 
-        // Function to apply the JSON data to the HTML elements
-        function applyChannelData() {
-            // Update the title and description using the data in the JSON object
-            document.getElementById('channel-title').textContent = jsonData.urlLinks[0].title;
-            document.getElementById('channel-description').textContent = jsonData.urlLinks[0].description;
+        // Function to apply a random entry from the JSON data to the HTML elements
+        function applyRandomChannelData() {
+            // Randomly select an entry from the urlLinks array
+            const randomIndex = Math.floor(Math.random() * jsonData.urlLinks.length);
+            const selectedData = jsonData.urlLinks[randomIndex];
+
+            // Update the title, description, and button text using the selected data
+            document.getElementById('channel-title').textContent = selectedData.title;
+            document.getElementById('channel-description').textContent = selectedData.description;
 
             // Update the image source to display the icon
-            document.getElementById('icon-image').src = jsonData.urlLinks[0].icon;
+            document.getElementById('icon-image').src = selectedData.icon;
+
+            // Update the button text using the buttondescription from JSON data
+            document.getElementById('channel-button').textContent = selectedData.buttondescription;
 
             // Add a click event to the button to redirect to the URL
             document.getElementById('channel-button').addEventListener('click', function () {
-                window.location.href = jsonData.urlLinks[0].url;
+                window.location.href = selectedData.url;
             });
         }
 
-        // Call the function to apply the data on page load
-        window.onload = applyChannelData;
+        // Call the function to apply random data on page load
+        window.onload = applyRandomChannelData;
     </script>
 </body>
 
