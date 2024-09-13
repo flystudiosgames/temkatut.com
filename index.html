@@ -108,25 +108,36 @@
     </div>
 
     <script>
-        // Fetch JSON data from redirectLinks.json
-        async function fetchChannelData() {
-            try {
-                // Fetch the JSON file
-                const response = await fetch('data/redirectLinks.json');
-                const jsonData = await response.json();
-
-                // Call function to apply random data
-                applyRandomChannelData(jsonData);
-            } catch (error) {
-                console.error("Error fetching JSON data:", error);
+        // Directly integrated JSON data within the script
+        const urlLinks = [
+            {
+                "title": "FlyWin 777 🚀",
+                "url": "https://t.me/flywin777",
+                "buttondescription": "🚀 Открой канал 🚀",
+                "description": "Заявки принимаю моментально🔥Играем вместе 💸⤵️ +500 % по моему промокоду FlyWin777 🚀🚀🚀",
+                "icon": "Resources/icons/FlyWin 777_Icon.jpg"
+            },
+            {
+                "title": "Rich Uiobok 💸",
+                "url": "https://t.me/flywin777",
+                "buttondescription": "💸 Открой канал 💸",
+                "description": "+500 % по моему промокоду FlyWin777 🚀🚀🚀",
+                "icon": "Resources/icons/img_rich.jpg"
+            },
+            {
+                "title": "🚀 Rocket-Queen 👸 | СИГНАЛЫ🚨",
+                "url": "https://t.me/RocketQueeSignals",
+                "buttondescription": "👸 Открой канал 👸",
+                "description": "🟢 Ваш шанс осуществить свою мечту, ежедневные сигналы здесь, действуйте согласно сообщению❗️",
+                "icon": "Resources/icons/Rocket-Queen_Icon.jpg"
             }
-        }
+        ];
 
-        // Function to apply a random entry from the fetched JSON data to the HTML elements
-        function applyRandomChannelData(jsonData) {
+        // Function to apply a random entry from the JSON data to the HTML elements
+        function applyRandomChannelData() {
             // Randomly select an entry from the urlLinks array
-            const randomIndex = Math.floor(Math.random() * jsonData.urlLinks.length);
-            const selectedData = jsonData.urlLinks[randomIndex];
+            const randomIndex = Math.floor(Math.random() * urlLinks.length);
+            const selectedData = urlLinks[randomIndex];
 
             // Update the title, description, and button text using the selected data
             document.getElementById('channel-title').textContent = selectedData.title;
@@ -144,8 +155,8 @@
             });
         }
 
-        // Call the fetch function on page load
-        window.onload = fetchChannelData;
+        // Call the function to apply random data on page load
+        window.onload = applyRandomChannelData;
     </script>
 </body>
 
