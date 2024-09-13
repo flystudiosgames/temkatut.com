@@ -46,23 +46,8 @@
             box-shadow: 0 0 15px rgba(22, 25, 31, 0.7);
         }
 
-        .btn-success-custom.click-animation {
-            animation: press 0.5s;
-        }
-
         .btn-success-custom.bouncing {
             animation: bounce 1s infinite;
-        }
-
-        @keyframes press {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(0.9);
-            }
         }
 
         @keyframes bounce {
@@ -93,479 +78,66 @@
             color: #FFFF00;
         }
 
-        .blue-text {
-            color: #1E90FF;
-        }
-    .white-text {
-            color: #ffffff;
-        }
-        .green-text {
-            color: #70FA00;
+        .image-container {
+            margin-bottom: 20px;
         }
 
-        .red-text {
-            color: #ff4b4b;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .progress {
-            width: 100%;
-            height: 0.8rem;
-            background-color: #2A2F3A;
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            background-color: #d3c505;
-            width: 0;
-            height: 10;
-            transition: width 1s ease-in;
-        }
-
-        .modal-content {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            background-color: #090F1E;
-            border-radius: 0;
-        }
-
-        .modal-body {
-            padding: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .terminal {
-            background-color: #171b24;
-            color: #ffffff;
-            font-family: monospace;
-            padding: 10px;
-            height: 100%;
-            max-height: 100%;
-            overflow-y: hidden;
-            border-radius: 5px;
-            border: 1px solid #333;
-            flex: 1;
-            position: relative;
-            white-space: pre-wrap;
-        }
-
-        .terminal-content {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            max-height: 100%;
-            overflow-y: hidden;
-        }
-
-        .terminal-content p {
-            margin: 2px 0;
-            line-height: 1.2;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        #openProfileButton {
-            width: 100%;
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        #panel1,
-        #panel2 {
-            display: none;
-        }
-
-        #panel1.active,
-        #panel2.active {
-            display: flex;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 34px;
-            height: 20px;
-            margin-right: 10px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 12px;
-            width: 12px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked+.slider {
-            background-color: #62d305;
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(14px);
-        }
-
-        .switch-label {
-            color: #ffffff;
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: bold;
-        }
-
-        .notification {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: bold;
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-        }
-
-        .group-container {
-            margin-top: -30px;
+        .image-container img {
+            width: 146px;
+            height: 146px;
+            object-fit: cover;
+            border-radius: 25%; /* Rounded corners to make the image circular */
         }
     </style>
 </head>
 
 <body>
-    <!-- Panel 1 -->
     <div id="panel1" class="container active">
+        <!-- Image container -->
+        <div class="image-container">
+            <img id="icon-image" src="" alt="FlyWin 777 Icon">
+        </div>
+
+        <!-- Text content -->
         <div class="text-content yellow-text">
-            <p>FLY WIN HACK BOT  v5.4.2</p>
+            <p id="channel-title">Chanel Title</p>
         </div>
         <div class="text-content">
-            <p class="red-text">Бывший программист, который работал в 1Win взломав серверы !</p>
-            <p>Бот создаст уникальный ID и внедрит его в систему <span class="blue-text">1</span>Win через специальную ссылку. Это даст вам доступ к заработку на взломанных серверах <span class="blue-text">1</span>Win</p>
+            <p id="channel-description">Chanel Description</p>
         </div>
-        <button type="button" class="btn btn-success btn-success-custom bouncing" data-bs-toggle="modal" data-bs-target="#launchBotModal">Начинать взлом сейчас</button>
+        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Chanel Button Text</button>
     </div>
-
-    <!-- Panel 2 -->
-    <div id="panel2" class="container">
-        <div class="text-content">
-            <p><span class="red-text">1.</span> Скопируйте промокод и нажмите кнопку <span class="green-text">"Создать аккаунт"</span></p>
-            <p><span class="red-text">3.</span> Зарегистрируйтесь в 1Win, нажмите <span class="green-text">"Добавить промокод"</span> и введите <span class="yellow-text">FLYWINCASH</span></p>
-            <p><span class="red-text">4.</span> включите переключатель, чтобы запустить бота.</p>
-        </div>
-
-        <div class="group-container">
-            <button type="button" class="btn btn-success btn-success-custom" id="copyPromoCodeButton">
-                СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span>
-            </button>
-            <button type="button" class="btn btn-success btn-success-custom" id="openLinkPanel">➡️СОЗДАТЬ АККАУНТ ЗДЕСЬ⬅️</button>
-            <p></p>
-            <div class="switch-container">
-                <label class="switch">
-                    <input type="checkbox" id="registryCheckbox">
-                    <span class="slider round"></span>
-                </label>
-                <span id="switchText" class="switch-label"><span class="red-text">5.</span> Я зарегистрировался и ввел промокод <span class="yellow-text">FLYWINCASH</span> по ссылке, созданной алгоритмом.</span>
-            </div>
-
-        </div>
-        <p></p>
-        <button type="button" id="openHackBotButton" class="btn btn-success btn-success-custom" onclick="window.location.href='Home.html'" disabled>➡️Запустить Бот⬅️</button>
-    </div>
-
-
-    <div id="notification" class="notification">
-        Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован!
-    </div>
-
-    <div class="modal fade" id="launchBotModal" tabindex="-1" aria-labelledby="launchBotModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p id="launchBotModalLabel" class="text-center mb-4" style="font-family: 'Roboto Condensed', sans-serif; font-size: 1.5em;">Connecting...</p>
-                    <div class="progress">
-                        <div id="progressBar" class="progress-bar" role="progressbar"></div>
-                    </div>
-                    <div id="terminal" class="terminal">
-                        <div id="terminal-content" class="terminal-content">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer hidden">
-                    <button type="button" class="btn btn-success btn-success-custom" id="openProfileButton" data-bs-dismiss="modal">ОТКРОЙТЕ ВЗЛОМАННЫЙ ПОРТ</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
-        document.getElementById('switchText').addEventListener('click', function() {
-            const registryCheckbox = document.getElementById('registryCheckbox');
-            registryCheckbox.checked = !registryCheckbox.checked;
-
-            const openHackBotButton = document.getElementById('openHackBotButton');
-            if (registryCheckbox.checked) {
-                openHackBotButton.disabled = false;
-                openHackBotButton.classList.add('bouncing');
-            } else {
-                openHackBotButton.disabled = true;
-                openHackBotButton.classList.remove('bouncing');
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const panel2 = document.getElementById('panel2');
-            const registryCheckbox = document.getElementById('registryCheckbox');
-            const openHackBotButton = document.getElementById('openHackBotButton');
-
-            const observer = new MutationObserver(function() {
-                if (panel2.classList.contains('active')) {
-                    registryCheckbox.checked = false;
-                    openHackBotButton.disabled = true;
-                    openHackBotButton.classList.remove('bouncing');
+        // JSON data defined within the script
+        const jsonData = {
+            "urlLinks": [
+                {
+                    "url": "https://t.me/flywin777",
+                    "title": "FlyWin 777 🚀",
+                    "description": "FlyWin 777 is a high-speed rocket game bot offering the best gaming experience.",
+                    "icon": "Resources/icons/FlyWin 777_Icon.jpg"
                 }
-            });
+            ]
+        };
 
-            observer.observe(panel2, {
-                attributes: true,
-                attributeFilter: ['class']
-            });
-        });
+        // Function to apply the JSON data to the HTML elements
+        function applyChannelData() {
+            // Update the title and description using the data in the JSON object
+            document.getElementById('channel-title').textContent = jsonData.urlLinks[0].title;
+            document.getElementById('channel-description').textContent = jsonData.urlLinks[0].description;
 
-        function triggerClickAnimation(button) {
-            button.classList.add('click-animation');
-            setTimeout(() => {
-                button.classList.remove('click-animation');
-            }, 500);
-        }
+            // Update the image source to display the icon
+            document.getElementById('icon-image').src = jsonData.urlLinks[0].icon;
 
-        function startAnimationSequence() {
-            const buttons = [
-                document.getElementById('copyPromoCodeButton'),
-                document.getElementById('openLinkPanel'),
-                document.getElementById('openHackBotButton')
-            ];
-
-            let index = 0;
-
-            function animateNextButton() {
-                if (index < buttons.length) {
-                    triggerClickAnimation(buttons[index]);
-                    index++;
-                    setTimeout(animateNextButton, 2000);
-                } else {
-                    index = 0;
-                    setTimeout(animateNextButton, 2000);
-                }
-            }
-
-            const panel2 = document.getElementById('panel2');
-
-            const observer = new MutationObserver(() => {
-                if (panel2.classList.contains('active')) {
-                    animateNextButton();
-                }
-            });
-
-            observer.observe(panel2, {
-                attributes: true,
-                attributeFilter: ['class']
+            // Add a click event to the button to redirect to the URL
+            document.getElementById('channel-button').addEventListener('click', function () {
+                window.location.href = jsonData.urlLinks[0].url;
             });
         }
 
-        document.addEventListener('DOMContentLoaded', startAnimationSequence);
-
-        document.getElementById('launchBotModal').addEventListener('show.bs.modal', function() {
-            const modalLabel = document.getElementById('launchBotModalLabel');
-            const progressBar = document.getElementById('progressBar');
-            const openProfileButton = document.getElementById('openProfileButton');
-            const footer = document.querySelector('.modal-footer');
-            const terminalContent = document.getElementById('terminal-content');
-
-            function getCurrentDateTime() {
-                const now = new Date();
-                const day = String(now.getDate()).padStart(2, '0');
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const year = now.getFullYear();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                const formattedTime = `${hours}:${minutes} ${ampm}`;
-                return `${day}.${month}.${year} ${formattedTime}`;
-            }
-
-            function generateServerID() {
-                const digits = '1234567890';
-                let serverID = '';
-                for (let i = 0; i < 8; i++) {
-                    serverID += digits.charAt(Math.floor(Math.random() * digits.length));
-                }
-                return serverID;
-            }
-
-            const serverID = generateServerID();
-
-            const terminalLines = [
-                "<span class='yellow-text'>$ sudo apt-get update</span>",
-                "<span class='white-text'>Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease</span>",
-                "<span class='blue-text'>Get:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]</span>",
-                "<span class='blue-text'>Get:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease [101 kB]</span>",
-                "<span class='blue-text'>Get:4 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]</span>",
-                "<span class='white-text'>Fetched 329 kB in 1s (305 kB/s)</span>",
-                "<span class='green-text'>Reading package lists... Done</span>",
-                "<span class='yellow-text'>$ sudo apt-get install curl</span>",
-                "<span class='green-text'>Reading package lists... Done</span>",
-                "<span class='green-text'>Building dependency tree</span>",
-                "<span class='green-text'>Reading state information... Done</span>",
-                "<span class='purple-text'>The following NEW packages will be installed:</span>",
-                "<span class='purple-text'>  curl</span>",
-                "<span class='white-text'>0 upgraded, 1 newly installed, 0 to remove and 5 not upgraded.</span>",
-                "<span class='white-text'>Need to get 159 kB of archives.</span>",
-                "<span class='white-text'>After this operation, 468 kB of additional disk space will be used.</span>",
-                "<span class='blue-text'>Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 curl amd64 7.68.0-1ubuntu2 [159 kB]</span>",
-                "<span class='white-text'>Fetched 159 kB in 0s (420 kB/s)</span>",
-                "<span class='green-text'>Selecting previously unselected package curl.</span>",
-                "<span class='green-text'>(Reading database ... 312496 files and directories currently installed.)</span>",
-                "<span class='white-text'>Preparing to unpack .../curl_7.68.0-1ubuntu2_amd64.deb ...</span>",
-                "<span class='white-text'>Unpacking curl (7.68.0-1ubuntu2) ...</span>",
-                "<span class='white-text'>Setting up curl (7.68.0-1ubuntu2) ...</span>",
-                "<span class='yellow-text'>$ curl -I https://1win.com</span>",
-                "<span class='blue-text'>HTTP/2 200</span>",
-                "<span class='blue-text'>content-type: text/html; charset=UTF-8</span>",
-                "<span class='blue-text'>x-powered-by: PHP/7.4.3</span>",
-                `<span class='green-text'>Successfully connected to 1Win server.</span>`,
-                `<span class='green-text'>Fetching server ID: ${serverID}</span>`,
-                "<span class='green-text'> </span>",
-                `<span class='green-text'>Successfully Connected !</span>`,
-                `<span class='green-text'>Connected Date ${getCurrentDateTime()}</span>`,
-                "<span class='green-text'> </span>",
-            ];
-
-            const fakeConnectionSteps = [{
-                    message: `<span class="white-text">Подключение к серверу 1Win...</span>`,
-                    progress: 20
-                },
-                {
-                    message: `<span class="white-text">Получение данных с сервера 1Win...</span>`,
-                    progress: 40
-                },
-                {
-                    message: `<span class="white-text">Завершение соединения...</span>`,
-                    progress: 60
-                },
-                {
-                    message: `<span class="white-text">Успешное подключение...</span>`,
-                    progress: 80
-                },
-                {
-                    message: `<span class="white-text">Подключение к</span> <span class="green-text">ID: ${serverID}</span>`,
-                    progress: 100
-                },
-            ];
-
-            let stepIndex = 0;
-            let terminalIndex = 0;
-
-            function showNextStep() {
-                if (stepIndex < fakeConnectionSteps.length) {
-                    modalLabel.innerHTML = fakeConnectionSteps[stepIndex].message;
-                    progressBar.style.width = fakeConnectionSteps[stepIndex].progress + '%';
-                    stepIndex++;
-                    setTimeout(showNextStep, 1000);
-                } else {
-                    setTimeout(() => {
-                        footer.classList.remove('hidden');
-                        openProfileButton.style.pointerEvents = 'auto';
-                        openProfileButton.style.opacity = '1';
-                        openProfileButton.classList.add('bouncing');
-                    }, 1000);
-                }
-            }
-
-            function addTerminalLines() {
-                if (terminalIndex < terminalLines.length) {
-                    terminalContent.innerHTML += `<p>${terminalLines[terminalIndex]}</p>`;
-                    terminalContent.scrollTop = terminalContent.scrollHeight;
-                    terminalIndex++;
-                    setTimeout(addTerminalLines, 5000 / terminalLines.length);
-                }
-            }
-
-            openProfileButton.addEventListener('click', () => {
-                document.getElementById('panel1').classList.remove('active');
-                document.getElementById('panel2').classList.add('active');
-            });
-
-            showNextStep();
-            addTerminalLines();
-        });
-
-        document.getElementById('registryCheckbox').addEventListener('change', function() {
-            const openHackBotButton = document.getElementById('openHackBotButton');
-            if (this.checked) {
-                openHackBotButton.disabled = false;
-                openHackBotButton.classList.add('bouncing');
-            } else {
-                openHackBotButton.disabled = true;
-                openHackBotButton.classList.remove('bouncing');
-            }
-        });
-
-        document.getElementById('copyPromoCodeButton').addEventListener('click', function() {
-            const promoCode = "FLYWINCASH";
-            navigator.clipboard.writeText(promoCode).then(function() {
-                const notification = document.getElementById('notification');
-                notification.innerHTML = `Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован!`;
-                notification.style.fontFamily = 'Roboto Condensed, sans-serif';
-                notification.style.fontWeight = 'bold';
-                notification.style.display = 'block';
-                setTimeout(function() {
-                    notification.style.display = 'none';
-                }, 2000);
-            });
-        });
-
-        document.getElementById('openLinkPanel').addEventListener('click', function() {
-            window.open('https://1wfqtr.life/v3/lucky-jet-updated?p=hvdq', '_blank');
-        });
+        // Call the function to apply the data on page load
+        window.onload = applyChannelData;
     </script>
 </body>
 
