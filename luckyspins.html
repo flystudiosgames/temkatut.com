@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --element-spacing: -15px; /* Variabila pentru spațierea dintre elemente */
+            --element-spacing: -10px; /* Variabila pentru spațierea dintre elemente */
+            --panel-lift: -50px; /* Variabila care controlează ridicarea panelului în sus */
         }
 
         body {
@@ -45,6 +46,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
             position: relative; /* Se menține poziția relativă, dar fixată în centru */
+             top: var(--panel-lift); /* Ridică panelul cu valoarea din variabilă */
         }
 
         .btn-success-custom {
