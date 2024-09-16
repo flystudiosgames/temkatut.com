@@ -8,6 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --element-spacing: -15px; /* Variabila pentru spațierea dintre elemente */
+        }
+
         body {
             background-color: #171b24;
             margin: 0;
@@ -25,15 +29,16 @@
             background-color: #1e222a;
             border-radius: 25px;
             padding: 20px;
-            width: 100%; /* Full width on smaller screens */
-            max-width: 60vh; /* Max width for larger screens */
+            width: 100%; 
+            max-width: 60vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: var(--element-spacing); /* Controlăm distanța dintre elemente */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
-            margin: 20px; /* Adds space around container */
+            margin: 20px; 
         }
 
         .btn-success-custom {
@@ -47,7 +52,7 @@
             font-size: 1.2em;
             transition: transform 0.3s ease-in-out;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
+            margin-top: 10px; /* Micșorat spațiul de sus */
         }
 
         .promo-btn {
@@ -63,35 +68,15 @@
         }
 
         @keyframes bounce {
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
+            0%, 20%, 50%, 80%, 100% {
                 transform: translateY(0);
             }
-
             40% {
                 transform: translateY(-10px);
             }
-
             60% {
                 transform: translateY(-5px);
             }
-        }
-
-        .text-content {
-            font-family: 'Roboto', sans-serif;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        .white-text {
-            color: #ffffff;
-        }
-
-        .image-container {
-            margin-bottom: 20px;
         }
 
         .image-container img {
@@ -105,14 +90,13 @@
         #channel-title {
             font-size: 2em;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Înlăturat marginile suplimentare */
         }
 
         #channel-description {
             font-size: 1.2em;
             font-weight: 400;
             line-height: 1.5;
-            margin-bottom: 20px;
         }
 
         .yellow-text {
@@ -146,14 +130,14 @@
         /* Media queries to adjust for smaller screens */
         @media (max-width: 768px) {
             .container.active {
-                max-width: 90%; /* Use a smaller max width on medium screens */
+                max-width: 90%;
                 padding: 15px;
             }
         }
 
         @media (max-width: 576px) {
             .container.active {
-                max-width: 95%; /* Almost full width on small screens */
+                max-width: 95%;
                 padding: 10px;
             }
         }
@@ -195,21 +179,21 @@
                 "url": "https://1wxxlb.com/v3/2618/fortune-rabbit?p=xh1i",
                 "buttondescription": "⚜️ Открой Fortune Rabbit ⚜️",
                 "description": "+500% по моему промокоду FLYWINCASH",
-                "icon": "Resources/Slots/Fortune-rabbit_Icon.avif"
+                "icon": "Resources/Slots/Fortune-rabbit_Icon.png"
             },
             {
                 "title": "🐯 Tiger Fortune 🐯",
                 "url": "https://1wxxlb.com/v3/fortune-tiger?p=gy44",
                 "buttondescription": "⚜️ Открой Tiger Fortune ⚜️",
                 "description": "+500% по моему промокоду FLYWINCASH",
-                "icon": "Resources/Slots/Tiger Fortune_Icon.avif"
+                "icon": "Resources/Slots/Tiger Fortune_Icon.png"
             },
             {
                 "title": "⚡️ Power Of Zeus ⚡️",
                 "url": "https://1wxxlb.com/casino/list?open=register&p=xi4n",
                 "buttondescription": "⚜️ Открой Power Of Zeus ⚜️",
                 "description": "+500% по моему промокоду FLYWINCASH",
-                "icon": "Resources/Slots/Power Of Zeus_Icon.avif"
+                "icon": "Resources/Slots/Power Of Zeus_Icon.png"
             }
         ];
 
