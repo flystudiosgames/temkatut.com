@@ -23,22 +23,28 @@
             font-family: 'Roboto', sans-serif;
             font-weight: bold;
             text-align: center;
+            overflow: hidden; /* Previne scroll-ul */
+        }
+
+        html {
+            height: 100%; /* Se asigură că ocupă toată înălțimea */
+            overflow: hidden; /* Previne scroll-ul */
         }
 
         .container.active {
             background-color: #1e222a;
             border-radius: 25px;
             padding: 20px;
-            width: 100%; 
-            max-width: 60vh; 
+            width: 100%;
+            max-width: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: var(--element-spacing); /* Controlăm distanța dintre elemente */
+            gap: var(--element-spacing);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
-            margin: 20px; 
+            position: relative; /* Se menține poziția relativă, dar fixată în centru */
         }
 
         .btn-success-custom {
@@ -71,9 +77,11 @@
             0%, 20%, 50%, 80%, 100% {
                 transform: translateY(0);
             }
+
             40% {
                 transform: translateY(-10px);
             }
+
             60% {
                 transform: translateY(-5px);
             }
@@ -105,7 +113,7 @@
 
         #notification {
             position: fixed;
-            top: -100px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #681ce3;
@@ -116,11 +124,18 @@
             font-family: 'Roboto', sans-serif;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: top 0.5s ease-in-out;
+            opacity: 0; /* Inițial ascuns */
+            display: none; /* Inițial nu apare */
+            transition: opacity 0.5s ease, top 0.5s ease; /* Tranziție lină */
         }
 
         #notification.show {
-            top: 20px;
+            display: block; /* Apare în pagină */
+            opacity: 1; /* Devine vizibil */
+        }
+
+        #notification.hide {
+            opacity: 0; /* Dispare */
         }
 
         .btn-success-custom:active {
@@ -145,7 +160,7 @@
 </head>
 
 <body>
-    <!-- Notification div (initially hidden) -->
+    <!-- Notification div (inițial ascuns) -->
     <div id="notification">Промокод FLYWINCASH был скопирован</div>
 
     <div id="panel1" class="container active">
@@ -214,9 +229,15 @@
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
+
+            // Afișăm notificarea cu fade
+            notification.classList.remove('hide');
             notification.classList.add('show');
+
+            // După 3 secunde, ascundem notificarea cu fade
             setTimeout(() => {
                 notification.classList.remove('show');
+                notification.classList.add('hide');
             }, 3000);
         }
 
