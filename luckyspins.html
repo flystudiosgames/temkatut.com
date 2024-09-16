@@ -18,20 +18,22 @@
             color: #FFFFFF;
             font-family: 'Roboto', sans-serif;
             font-weight: bold;
+            text-align: center;
         }
 
-        .container {
+        .container.active {
             background-color: #1e222a;
             border-radius: 25px;
             padding: 20px;
+            width: 100%; /* Full width on smaller screens */
+            max-width: 60vh; /* Max width for larger screens */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 60vh;
-            max-width: 100%;
-            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow */
+            margin: 20px; /* Adds space around container */
         }
 
         .btn-success-custom {
@@ -44,16 +46,16 @@
             height: 50px;
             font-size: 1.2em;
             transition: transform 0.3s ease-in-out;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for button */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
         }
 
         .promo-btn {
-            background-color: #681ce3; /* Culoarea violet */
+            background-color: #681ce3;
         }
 
         .promo-btn:hover {
-            background-color: #5714c2; /* Culoare ușor mai închisă la hover */
+            background-color: #5714c2;
         }
 
         .btn-success-custom.bouncing {
@@ -96,18 +98,18 @@
             width: 210px;
             height: 156px;
             object-fit: cover;
-            border-radius: 10%; /* Rounded corners to make the image circular */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for image */
+            border-radius: 10%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         #channel-title {
-            font-size: 2em; /* Reduced font size */
+            font-size: 2em;
             font-weight: 700;
             margin-bottom: 20px;
         }
 
         #channel-description {
-            font-size: 1.2em; /* Reduced font size */
+            font-size: 1.2em;
             font-weight: 400;
             line-height: 1.5;
             margin-bottom: 20px;
@@ -117,13 +119,12 @@
             color: #FFD700;
         }
 
-        /* Notification styles */
         #notification {
             position: fixed;
-            top: -100px; /* Hidden by default */
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #681ce3; /* Setarea culorii violet */
+            background-color: #681ce3;
             color: #ffffff;
             padding: 15px 30px;
             border-radius: 5px;
@@ -135,12 +136,26 @@
         }
 
         #notification.show {
-            top: 20px; /* Visible position */
+            top: 20px;
         }
 
-        /* Optional additional styling for better user experience */
         .btn-success-custom:active {
             transform: scale(0.98);
+        }
+
+        /* Media queries to adjust for smaller screens */
+        @media (max-width: 768px) {
+            .container.active {
+                max-width: 90%; /* Use a smaller max width on medium screens */
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container.active {
+                max-width: 95%; /* Almost full width on small screens */
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -160,7 +175,7 @@
             <p id="channel-title">Channel Title</p>
         </div>
         <div class="text-content">
-            <p>❗️ОБЯЗАТЕЛЬНО НУЖЕН НОВЫЙ АККАУНТ❗️</p>
+            <p>❗️ Обязательно для новых пользователей! ❗️</p>
             <p id="channel-description">Channel Description</p>
         </div>
 
@@ -174,7 +189,6 @@
     </div>
 
     <script>
-        // Directly integrated JSON data within the script
         const urlLinks = [
             {
                 "title": "🐰 Fortune Rabbit 🐰",
@@ -199,41 +213,29 @@
             }
         ];
 
-        // Function to apply a random entry from the JSON data to the HTML elements
         function applyRandomChannelData() {
-            // Randomly select an entry from the urlLinks array
             const randomIndex = Math.floor(Math.random() * urlLinks.length);
             const selectedData = urlLinks[randomIndex];
 
-            // Update the title, description, and button text using the selected data
             document.getElementById('channel-title').textContent = selectedData.title;
             document.getElementById('channel-description').textContent = selectedData.description;
-
-            // Update the image source to display the icon
             document.getElementById('icon-image').src = selectedData.icon;
-
-            // Update the button text using the buttondescription from JSON data
             document.getElementById('channel-button').textContent = selectedData.buttondescription;
 
-            // Add a click event to the button to redirect to the URL
             document.getElementById('channel-button').addEventListener('click', function () {
                 window.location.href = selectedData.url;
             });
         }
 
-        // Function to show the notification
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.classList.add('show');
-
-            // Hide the notification after 3 seconds
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
 
-        // Function to copy the promo code to clipboard
         function copyPromoCode() {
             const promoCode = "FLYWINCASH";
             navigator.clipboard.writeText(promoCode).then(() => {
@@ -243,10 +245,8 @@
             });
         }
 
-        // Add event listener for the copy promo code button
         document.getElementById('copyPromoCodeButton').addEventListener('click', copyPromoCode);
 
-        // Call the function to apply random data on page load
         window.onload = applyRandomChannelData;
     </script>
 </body>
