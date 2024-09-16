@@ -91,10 +91,10 @@
         }
 
         .image-container img {
-            width: 146px;
-            height: 146px;
+            width: 210px;
+            height: 156px;
             object-fit: cover;
-            border-radius: 25%; /* Rounded corners to make the image circular */
+            border-radius: 10%; /* Rounded corners to make the image circular */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for image */
         }
 
@@ -109,6 +109,15 @@
             font-weight: 400;
             line-height: 1.5;
             margin-bottom: 20px;
+        }
+
+        .yellow-text {
+            color: #FFD700;
+        }
+
+        /* Optional additional styling for better user experience */
+        .btn-success-custom:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
@@ -125,8 +134,16 @@
             <p id="channel-title">Channel Title</p>
         </div>
         <div class="text-content">
+            <p>⬇️ бонус от меня ⬇️</p>
             <p id="channel-description">Channel Description</p>
         </div>
+
+        <!-- New button to copy promo code -->
+        <button type="button" class="btn btn-success btn-success-custom" id="copyPromoCodeButton">
+            СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span>
+        </button>
+        <p></p>
+        <!-- Existing channel button -->
         <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Channel Button Text</button>
     </div>
 
@@ -134,25 +151,25 @@
         // Directly integrated JSON data within the script
         const urlLinks = [
             {
-                "title": "FlyWin 777 🚀",
-                "url": "https://t.me/flywin777",
-                "buttondescription": "🚀 Открой канал 🚀",
-                "description": "Заявки принимаю моментально🔥Играем вместе 💸⤵️ +500 % по моему промокоду FlyWin777 🚀🚀🚀",
-                "icon": "Resources/icons/FlyWin 777_Icon.jpg"
+                "title": "🐰 Fortune Rabbit 🐰",
+                "url": "https://1wxxlb.com/v3/2618/fortune-rabbit?p=xh1i",
+                "buttondescription": "⚜️ Открой Fortune Rabbit ⚜️",
+                "description": "+500% по моему промокоду FLYWINCASH",
+                "icon": "Resources/Slots/Fortune-rabbit_Icon.avif"
             },
             {
-                "title": "Rich Uiobok 💸",
-                "url": "https://t.me/flywin777",
-                "buttondescription": "💸 Открой канал 💸",
-                "description": "+500 % по моему промокоду FlyWin777 🚀🚀🚀",
-                "icon": "Resources/icons/img_rich.jpg"
+                "title": "🐯 Tiger Fortune 🐯",
+                "url": "https://1wxxlb.com/v3/fortune-tiger?p=gy44",
+                "buttondescription": "⚜️ Открой Tiger Fortune ⚜️",
+                "description": "+500% по моему промокоду FLYWINCASH",
+                "icon": "Resources/Slots/Tiger Fortune_Icon.avif"
             },
             {
-                "title": "🚀 Rocket-Queen 👸 | СИГНАЛЫ🚨",
-                "url": "https://t.me/RocketQueeSignals",
-                "buttondescription": "👸 Открой канал 👸",
-                "description": "ежедневные сигналы здесь, действуйте согласно сообщению❗️",
-                "icon": "Resources/icons/Rocket-Queen_Icon.jpg"
+                "title": "⚡️ Power Of Zeus ⚡️",
+                "url": "https://1wxxlb.com/casino/list?open=register&p=xi4n",
+                "buttondescription": "⚜️ Открой Power Of Zeus ⚜️",
+                "description": "+500% по моему промокоду FLYWINCASH",
+                "icon": "Resources/Slots/Power Of Zeus_Icon.avif"
             }
         ];
 
@@ -177,6 +194,19 @@
                 window.location.href = selectedData.url;
             });
         }
+
+        // Function to copy the promo code to clipboard
+        function copyPromoCode() {
+            const promoCode = "FLYWINCASH";
+            navigator.clipboard.writeText(promoCode).then(() => {
+                alert("Код скопирован: " + promoCode);
+            }).catch(err => {
+                alert("Ошибка копирования: " + err);
+            });
+        }
+
+        // Add event listener for the copy promo code button
+        document.getElementById('copyPromoCodeButton').addEventListener('click', copyPromoCode);
 
         // Call the function to apply random data on page load
         window.onload = applyRandomChannelData;
