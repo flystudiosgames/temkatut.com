@@ -10,7 +10,6 @@
     <style>
         :root {
             --element-spacing: -10px; /* Variabila pentru spațierea dintre elemente */
-            --panel-lift: -40px; /* Variabila care controlează ridicarea panelului în sus */
         }
 
         body {
@@ -46,7 +45,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
             position: relative;
-            top: var(--panel-lift); /* Ridică panelul cu valoarea din variabilă */
         }
 
         .btn-success-custom {
@@ -168,9 +166,6 @@
 </head>
 
 <body>
-    <!-- Notification div (inițial ascuns) -->
-    <div id="notification">Промокод FLYWINCASH был скопирован</div>
-
     <div id="panel1" class="container active">
         <!-- Image container -->
         <div class="image-container">
@@ -182,7 +177,7 @@
             <p id="channel-title">Channel Title</p>
         </div>
         <div class="text-content">
-            <p>💸<strong>ЧТОБЫ ПОЛУЧИТЬ БОНУС</strong>💸</p>
+            <p><strong>ЧТОБЫ ПОЛУЧИТЬ БОНУС</strong></p>
             <p>❗️ НУЖЕН НОВЫЙ АККАУНТ❗️</p>
             <p id="channel-description"><span class="green-text">+500%</span> по моему промокоду <span class="yellow-text">FLYWINCASH</span></p>
         </div>
@@ -195,6 +190,8 @@
         <!-- Existing channel button -->
         <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Channel Button Text</button>
     </div>
+    <!-- Notification div (inițial ascuns) -->
+    <div id="notification">Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован</div>
 
     <script>
         const urlLinks = [
@@ -237,7 +234,7 @@
 
         function showNotification(message) {
             const notification = document.getElementById('notification');
-            notification.textContent = message;
+            notification.innerHTML = message;
 
             // Afișăm notificarea cu fade
             notification.classList.remove('hide');
@@ -251,9 +248,9 @@
         }
 
         function copyPromoCode() {
-            const promoCode = "FLYWINCASH";
-            navigator.clipboard.writeText(promoCode).then(() => {
-                showNotification("Промокод FLYWINCASH был скопирован");
+            const promoCode = "<span class='yellow-text'>FLYWINCASH</span>";
+            navigator.clipboard.writeText("FLYWINCASH").then(() => {
+                showNotification("Промокод <span class='yellow-text'>FLYWINCASH</span> был скопирован");
             }).catch(err => {
                 alert("Ошибка копирования: " + err);
             });
