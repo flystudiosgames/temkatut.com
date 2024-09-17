@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --element-spacing: -10px; /* Variabila pentru spațierea dintre elemente */
+            --element-spacing: -10px;
         }
 
         body {
@@ -23,12 +23,12 @@
             font-family: 'Roboto', sans-serif;
             font-weight: bold;
             text-align: center;
-            overflow: hidden; /* Previne scroll-ul */
+            overflow: hidden;
         }
 
         html {
-            height: 100%; /* Se asigură că ocupă toată înălțimea */
-            overflow: hidden; /* Previne scroll-ul */
+            height: 100%;
+            overflow: hidden;
         }
 
         .container.active {
@@ -56,9 +56,26 @@
             width: 100%;
             height: 50px;
             font-size: 1.2em;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 10px; /* Micșorat spațiul de sus */
+            margin-top: 10px;
+        }
+
+        .btn-success-custom.clicked {
+            animation: pressButton 0.3s ease;
+            background-color: #5714c2; /* Culoarea mai închisă */
+        }
+
+        @keyframes pressButton {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         .promo-btn {
@@ -98,7 +115,7 @@
         #channel-title {
             font-size: 2em;
             font-weight: 700;
-            margin-bottom: 0; /* Înlăturat marginile suplimentare */
+            margin-bottom: 0;
         }
 
         #channel-description {
@@ -120,8 +137,8 @@
         #notification {
             position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            width: 100%;
             background-color: #681ce3;
             color: #ffffff;
             padding: 15px 30px;
@@ -130,25 +147,24 @@
             font-family: 'Roboto', sans-serif;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            opacity: 0; /* Inițial ascuns */
-            display: none; /* Inițial nu apare */
-            transition: opacity 0.5s ease, top 0.5s ease; /* Tranziție lină */
+            opacity: 0;
+            display: none;
+            transition: opacity 0.5s ease, top 0.5s ease;
         }
 
         #notification.show {
-            display: block; /* Apare în pagină */
-            opacity: 1; /* Devine vizibil */
+            display: block;
+            opacity: 1;
         }
 
         #notification.hide {
-            opacity: 0; /* Dispare */
+            opacity: 0;
         }
 
         .btn-success-custom:active {
             transform: scale(0.98);
         }
 
-        /* Media queries to adjust for smaller screens */
         @media (max-width: 768px) {
             .container.active {
                 max-width: 90%;
@@ -167,12 +183,10 @@
 
 <body>
     <div id="panel1" class="container active">
-        <!-- Image container -->
         <div class="image-container">
             <img id="icon-image" src="" alt="Icon">
         </div>
 
-        <!-- Text content -->
         <div class="text-content white-text">
             <p id="channel-title">Channel Title</p>
         </div>
@@ -182,15 +196,13 @@
             <p id="channel-description"><span class="green-text">+500%</span> по моему промокоду <span class="yellow-text">FLYWINCASH</span></p>
         </div>
 
-        <!-- New button to copy promo code with new color -->
         <button type="button" class="btn btn-success btn-success-custom promo-btn" id="copyPromoCodeButton">
             СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span>
         </button>
         <p></p>
-        <!-- Existing channel button -->
         <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">Channel Button Text</button>
     </div>
-    <!-- Notification div (inițial ascuns) -->
+
     <div id="notification">Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован</div>
 
     <script>
@@ -236,11 +248,9 @@
             const notification = document.getElementById('notification');
             notification.innerHTML = message;
 
-            // Afișăm notificarea cu fade
             notification.classList.remove('hide');
             notification.classList.add('show');
 
-            // După 3 secunde, ascundem notificarea cu fade
             setTimeout(() => {
                 notification.classList.remove('show');
                 notification.classList.add('hide');
@@ -248,7 +258,16 @@
         }
 
         function copyPromoCode() {
-            const promoCode = "<span class='yellow-text'>FLYWINCASH</span>";
+            const copyButton = document.getElementById('copyPromoCodeButton');
+
+            // Adăugăm clasa pentru efectul de apăsare și schimbăm culoarea
+            copyButton.classList.add('clicked');
+
+            // Eliminăm clasa după finalizarea animației
+            setTimeout(() => {
+                copyButton.classList.remove('clicked');
+            }, 300);
+
             navigator.clipboard.writeText("FLYWINCASH").then(() => {
                 showNotification("Промокод <span class='yellow-text'>FLYWINCASH</span> был скопирован");
             }).catch(err => {
