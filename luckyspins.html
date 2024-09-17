@@ -45,8 +45,8 @@
             gap: var(--element-spacing);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
-            position: relative; /* Se menține poziția relativă, dar fixată în centru */
-             top: var(--panel-lift); /* Ridică panelul cu valoarea din variabilă */
+            position: relative;
+            top: var(--panel-lift); /* Ridică panelul cu valoarea din variabilă */
         }
 
         .btn-success-custom {
@@ -111,6 +111,12 @@
 
         .yellow-text {
             color: #FFD700;
+            font-weight: bold;
+        }
+
+        .green-text {
+            color: #00FF00;
+            font-weight: bold;
         }
 
         #notification {
@@ -176,9 +182,9 @@
             <p id="channel-title">Channel Title</p>
         </div>
         <div class="text-content">
-            <p>💸ЧТОБЫ ПОЛУЧИТЬ БОНУС💸</p>
+            <p>💸<strong>ЧТОБЫ ПОЛУЧИТЬ БОНУС</strong>💸</p>
             <p>❗️ НУЖЕН НОВЫЙ АККАУНТ❗️</p>
-            <p id="channel-description">Channel Description</p>
+            <p id="channel-description"><span class="green-text">+500%</span> по моему промокоду <span class="yellow-text">FLYWINCASH</span></p>
         </div>
 
         <!-- New button to copy promo code with new color -->
@@ -196,21 +202,21 @@
                 "title": "🐰 Fortune Rabbit 🐰",
                 "url": "https://1wxxlb.com/v3/2618/fortune-rabbit?p=xh1i",
                 "buttondescription": "⚜️ Открой Fortune Rabbit ⚜️",
-                "description": "+500% по моему промокоду FLYWINCASH",
+                "description": "<span class='green-text'>+500%</span> по моему промокоду <span class='yellow-text'>FLYWINCASH</span>",
                 "icon": "Resources/Slots/Fortune-rabbit_Icon.png"
             },
             {
                 "title": "🐯 Tiger Fortune 🐯",
                 "url": "https://1wxxlb.com/v3/fortune-tiger?p=gy44",
                 "buttondescription": "⚜️ Открой Tiger Fortune ⚜️",
-                "description": "+500% по моему промокоду FLYWINCASH",
+                "description": "<span class='green-text'>+500%</span> по моему промокоду <span class='yellow-text'>FLYWINCASH</span>",
                 "icon": "Resources/Slots/Tiger Fortune_Icon.png"
             },
             {
                 "title": "⚡️ Power Of Zeus ⚡️",
                 "url": "https://1wxxlb.com/casino/list?open=register&p=xi4n",
                 "buttondescription": "⚜️ Открой Power Of Zeus ⚜️",
-                "description": "+500% по моему промокоду FLYWINCASH",
+                "description": "<span class='green-text'>+500%</span> по моему промокоду <span class='yellow-text'>FLYWINCASH</span>",
                 "icon": "Resources/Slots/Power Of Zeus_Icon.png"
             }
         ];
@@ -220,7 +226,7 @@
             const selectedData = urlLinks[randomIndex];
 
             document.getElementById('channel-title').textContent = selectedData.title;
-            document.getElementById('channel-description').textContent = selectedData.description;
+            document.getElementById('channel-description').innerHTML = selectedData.description;
             document.getElementById('icon-image').src = selectedData.icon;
             document.getElementById('channel-button').textContent = selectedData.buttondescription;
 
