@@ -61,6 +61,11 @@
             80% { opacity: 1; }
             100% { opacity: 0; }
         }
+        #fallbackMessage {
+            display: none;
+            color: #ffcc00;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -68,12 +73,14 @@
         <h1>Welcome to PWA App</h1>
         <p>Click the button below to install the app.</p>
         <button class="btn btn-primary" id="installButton" style="display:none;">Install App</button>
+        <p id="fallbackMessage">Pe Android, poți adăuga aplicația pe ecranul de pornire apăsând meniul browserului și selectând "Add to Home Screen".</p>
         <div id="notification" class="notification">This is a simple notification!</div>
     </div>
 
     <script>
         let deferredPrompt;
         const installButton = document.getElementById('installButton');
+        const fallbackMessage = document.getElementById('fallbackMessage');
 
         // Listen for the beforeinstallprompt event
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -83,6 +90,7 @@
             deferredPrompt = e;
             // Update UI to show the install button
             installButton.style.display = 'block';
+            fallbackMessage.style.display = 'none'; // Ascunde fallback message
 
             installButton.addEventListener('click', () => {
                 // Hide the install button
@@ -112,6 +120,13 @@
                 });
             });
         }
+
+        // Fallback message if the beforeinstallprompt event is not fired
+        window.addEventListener('load', () => {
+            if (!deferredPrompt) {
+                fallbackMessage.style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
