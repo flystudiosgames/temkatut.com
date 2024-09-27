@@ -1,0 +1,21 @@
+{
+  "name": "luckygames",
+  "short_name": "luckygames",
+  "description": "A simple progressive web app for games",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#171b24",
+  "theme_color": "#681ce3",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
