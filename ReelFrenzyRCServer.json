@@ -1,0 +1,10 @@
+{
+    "websiteRCServer": "https://example.com",
+    "countrys": [
+        "USA",
+        "Canada",
+        "Germany",
+        "France",
+        "Spain"
+    ]
+}
