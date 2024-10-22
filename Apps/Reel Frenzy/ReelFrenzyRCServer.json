@@ -13,11 +13,11 @@
         "57.218.759.110"
     ],
         "osSystem": [
-        "Windows",
+        "WindowsQ",
         "Android"
     ],
             "devices": [
         "Android",
-        "PCA"
+        "PC"
     ]
 }
