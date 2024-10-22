@@ -11,5 +11,13 @@
     "whiteIPAdreses": [
         "87.248.169.150",
         "57.218.759.110"
+    ],
+        "osSystem": [
+        "Windows",
+        "Android"
+    ],
+            "devices": [
+        "Android",
+        "PC"
     ]
 }
