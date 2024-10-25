@@ -36,7 +36,9 @@
             .yellow-text {
             color: #FFFF00;
         }
-
+    .blue-text {
+            color: #1E90FF;
+        }
         body {
             background-color: #171b24;
             margin: 0;
@@ -337,8 +339,7 @@
                 <button type="button" class="btn btn-success btn-success-custom" id="copyPromoCodeButton">СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span></button></button>
             <div class="text-content">
             <p><span class="red-text">1.</span> Скопируйте промокод и нажмите кнопку <span class="green-text">"НАЧИНАТЬ"</span></p>
-            <p><span class="red-text">2.</span> зарегистрируйте новый Аккаунт 1win и добавьте промокод FLYWINCASH даст еще +500 FS</p>
-            <p><span class="red-text">3.</span> играйте и зарабатывайте деньги</p>
+            <p><span class="red-text">2.</span> Зарегистрируйте новый аккаунт 1win и добавьте промокод <span class="yellow-text">FLYWINCASH</span> это даст еще <span class="green-text">+500 FS</span></p></p>
         </div>
             </div>
             </div>
@@ -346,8 +347,8 @@
         <!-- Game Selection Container -->
         <div class="games-container">
             <div class="text-content">
-                <p>Ваш аккаунт везучий на +95%</p>
-                <p>делайте ставки и зарабатывайте</p>
+                <p>Ваш аккаунт везучий на <span class="green-text">+95%</span></p>
+                <p>Делайте ставки и побеждайте</p>
                 <p>_______________________________________________________</p>
                 <p id="userID">Bаш ID: </p>
                 <p>⬇️ Выберите игру и зарабатывайте ⬇️</p>
@@ -479,7 +480,7 @@
             const promoCode = 'FLYWINCASH';
             navigator.clipboard.writeText(promoCode).then(function () {
                 // Afișăm notificarea
-                notificationElement.textContent = `Промокод ${promoCode} был скопирован!`;
+               notificationElement.innerHTML = `Промокод <span class="yellow-text">${promoCode}</span> был скопирован`;
                 notificationElement.classList.add('show');
 
                 // Ascundem notificarea după 3 secunde
