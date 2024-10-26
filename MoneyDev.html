@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #171b24;
+            background: linear-gradient(135deg, #1e2a38, #171b24);
             margin: 0;
             height: 100vh;
             display: flex;
@@ -23,17 +23,22 @@
         }
 
         .container {
-            background-color: #1e222a;
+            background: linear-gradient(145deg, #1e222a, #252a34);
             border-radius: 25px;
-            padding: 20px;
+            padding: 25px;
             width: 100%;
             max-width: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
         }
 
         .btn-success-custom {
@@ -46,8 +51,14 @@
             height: 50px;
             font-size: 1.2em;
             transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             margin-top: 10px;
+            background: linear-gradient(135deg, #681ce3, #8a35f1);
+        }
+
+        .btn-success-custom:hover {
+            background: linear-gradient(135deg, #4b0cad, #681ce3);
+            transform: scale(1.05);
         }
 
         .btn-success-custom.bouncing {
@@ -60,31 +71,39 @@
             }
 
             40% {
-                transform: translateY(-10px);
+                transform: translateY(-12px);
             }
 
             60% {
-                transform: translateY(-5px);
+                transform: translateY(-6px);
             }
         }
 
         .image-container img {
-            width: 210px;
-            height: 156px;
+            width: 220px;
+            height: 160px;
             object-fit: cover;
-            border-radius: 10%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
         }
 
         #channel-title {
-            font-size: 2em;
+            font-size: 2.2em;
             font-weight: 700;
+            margin-bottom: 10px;
         }
 
         #channel-description {
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         .yellow-text {
@@ -95,6 +114,25 @@
         .green-text {
             color: #00FF00;
             font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 80%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                max-width: 90%;
+                padding: 15px;
+            }
+
+            .image-container img {
+                width: 180px;
+                height: 130px;
+            }
         }
     </style>
 </head>
@@ -123,22 +161,22 @@
         });
     </script>
 
-        <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '844512134188476');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=844512134188476&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '844512134188476');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=844512134188476&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
 </body>
+
 </html>
