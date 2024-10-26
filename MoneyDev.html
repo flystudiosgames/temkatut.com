@@ -20,6 +20,12 @@
             font-weight: bold;
             text-align: center;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
         }
 
         .container {
@@ -109,6 +115,16 @@
         .yellow-text {
             color: #FFD700;
             font-weight: bold;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         .green-text {
@@ -147,8 +163,8 @@
             <p id="channel-title">👑 MONEY DEV MD 👑</p>
         </div>
         <div class="text-content">
-            <p><strong>Pаздаю бота для заработка <span class="yellow-text">БЕСПЛАТНО</span></strong></p>
-            <p><strong><span class="green-text">+3500 MDL</span></strong> каждый день </p>
+            <p><strong>Pаздаю бота для заработка <span id="free-text" class="yellow-text">БЕСПЛАТНО</span></strong></p>
+            <p><strong><span id="money-amount" class="green-text">+0 MDL</span></strong> каждый день </p>
             <p>⬇️ Открой TG-Money Dev ⬇️</p>
         </div>
 
@@ -156,9 +172,34 @@
     </div>
 
     <script>
+        // Animația de fade-in la încărcare
+        window.addEventListener('load', function () {
+            document.body.classList.add('fade-in');
+            countUp(0, 3500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
+        });
+
+        // Redirecționare la apăsarea butonului
         document.getElementById('channel-button').addEventListener('click', function () {
             window.location.href = "https://t.me/moneydevmd";
         });
+
+        // Funcție pentru numărarea crescentă
+        function countUp(start, end, duration, elementId) {
+            const element = document.getElementById(elementId);
+            let startTime = null;
+
+            function animateCount(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = timestamp - startTime;
+                const currentValue = Math.min(Math.floor(progress / duration * (end - start) + start), end);
+                element.textContent = `+${currentValue} MDL`;
+                if (currentValue < end) {
+                    requestAnimationFrame(animateCount);
+                }
+            }
+
+            requestAnimationFrame(animateCount);
+        }
     </script>
 
     <!-- Meta Pixel Code -->
