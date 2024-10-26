@@ -115,16 +115,6 @@
         .yellow-text {
             color: #FFD700;
             font-weight: bold;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
         }
 
         .green-text {
@@ -163,7 +153,7 @@
             <p id="channel-title">👑 MONEY DEV MD 👑</p>
         </div>
         <div class="text-content">
-            <p><strong>Pаздаю бота для заработка <span id="free-text" class="yellow-text">БЕСПЛАТНО</span></strong></p>
+            <p><strong>Pаздаю бота для заработка <span id="free-text" class="yellow-text"></span><span id="typing-emoji">.✏️</span></strong></p>
             <p><strong><span id="money-amount" class="green-text">+0 MDL</span></strong> каждый день </p>
             <p>⬇️ Открой TG-Money Dev ⬇️</p>
         </div>
@@ -176,6 +166,7 @@
         window.addEventListener('load', function () {
             document.body.classList.add('fade-in');
             countUp(0, 3500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
+            typingEffect('free-text', 'БЕСПЛАТНО', 150, 'typing-emoji'); // Pornim efectul de scriere pentru "БЕСПЛАТНО"
         });
 
         // Redirecționare la apăsarea butonului
@@ -199,6 +190,26 @@
             }
 
             requestAnimationFrame(animateCount);
+        }
+
+        // Funcție pentru efectul de scriere (typing) cu emoji la final și eliminarea emoji-ului ✏️
+        function typingEffect(elementId, text, speed, emojiId) {
+            const element = document.getElementById(elementId);
+            const emoji = document.getElementById(emojiId);
+            let index = 0;
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else {
+                    // După terminarea scrierii, eliminăm emoji-ul
+                    emoji.style.display = 'none';
+                }
+            }
+
+            type();
         }
     </script>
 
