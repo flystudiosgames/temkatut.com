@@ -85,18 +85,28 @@
             }
         }
 
-        .image-container img {
+        .image-container {
             width: 220px;
             height: 160px;
-            object-fit: cover;
+            position: relative;
+            overflow: hidden;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .image-container img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .image-container img.active {
+            opacity: 1;
         }
 
         #channel-title {
@@ -135,7 +145,7 @@
                 padding: 15px;
             }
 
-            .image-container img {
+            .image-container {
                 width: 180px;
                 height: 130px;
             }
@@ -146,7 +156,10 @@
 <body>
     <div id="panel1" class="container">
         <div class="image-container">
-            <img id="icon-image" src="Resources/MoneyDev/MoneyDev_Icon.png" alt="Icon">
+            <img src="Resources/MoneyDev/image1.png" alt="Image 1" class="active">
+            <img src="Resources/MoneyDev/image2.png" alt="Image 2">
+            <img src="Resources/MoneyDev/image3.png" alt="Image 3">
+            <img src="Resources/MoneyDev/image4.png" alt="Image 4">
         </div>
 
         <div class="text-content white-text">
@@ -167,6 +180,7 @@
             document.body.classList.add('fade-in');
             countUp(0, 3500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
             typingEffect('free-text', 'БЕСПЛАТНО', 150, 'typing-emoji'); // Pornim efectul de scriere pentru "БЕСПЛАТНО"
+            startSlideshow(); // Pornim slideshow-ul automat
         });
 
         // Redirecționare la apăsarea butonului
@@ -211,13 +225,27 @@
 
             type();
         }
+
+        // Funcție pentru slideshow automat
+        function startSlideshow() {
+            const images = document.querySelectorAll('.image-container img');
+            let currentIndex = 0;
+
+            function showNextImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }
+
+            setInterval(showNextImage, 3000); // Schimbă imaginea la fiecare 3 secunde
+        }
     </script>
 
     <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)}.
         if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
         n.queue=[];t=b.createElement(e);t.async=!0;
         t.src=v;s=b.getElementsByTagName(e)[0];
