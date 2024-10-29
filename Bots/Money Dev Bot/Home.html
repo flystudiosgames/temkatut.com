@@ -357,7 +357,8 @@
                 <p id="userID">Bаш ID: </p>
                 <p>⬇️ Начни зарабатывать ⬇️</p>
             </div>
-            <button type="button" class="btn btn-success btn-success-custom" id="luckyJetButton" onclick="window.location.href='LuckyJet.html'">🤑 НАЧИНАТЬ 🤑</button>
+<button type="button" class="btn btn-success btn-success-custom" id="luckyJetButton" onclick="window.open('https://temkatut.com/MoneyDev', '_blank')">🤑 НАЧИНАТЬ 🤑</button>
+
         </div>
         <!-- Transfer History Container -->
         <div class="onlinetranzactiontext">
@@ -384,119 +385,77 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const userIDElement = document.getElementById('userID');
-        const savedUserID = localStorage.getItem('userID');
-        if (savedUserID) {
-            userIDElement.innerHTML = `Bаш <span class="white-text">ID:</span> <span class="green-text">${savedUserID}</span>`;
-        } else {
-            userIDElement.textContent = "Bаш ID: Not Available";
-        }
+    const userIDElement = document.getElementById('userID');
+    const savedUserID = localStorage.getItem('userID') || 'Not Available';
+    userIDElement.innerHTML = `Bаш <span class="white-text">ID:</span> <span class="green-text">${savedUserID}</span>`;
 
-        const transferHistoryContainer = document.querySelector('.transferHystory');
+    const transferHistoryContainer = document.querySelector('.transferHystory');
 
-        function createHistoryItem(id, amount) {
-            const historyItem = document.createElement('div');
-            historyItem.classList.add('history-item', 'fade-in');
+    function createHistoryItem(id, amount) {
+        const historyItem = document.createElement('div');
+        historyItem.classList.add('history-item', 'fade-in');
 
-            const idElement = document.createElement('div');
-            idElement.textContent = `User ID: ${id}****`;
+        historyItem.innerHTML = `
+            <div>User ID: ${id}****</div>
+            <div class="amount">$0.00</div>
+        `;
 
-            const amountElement = document.createElement('div');
-            amountElement.classList.add('amount');
-            amountElement.textContent = `$0.00`;
+        setTimeout(() => animateAmount(historyItem.querySelector('.amount'), amount), 100);
+        return historyItem;
+    }
 
-            historyItem.appendChild(idElement);
-            historyItem.appendChild(amountElement);
+    function generateRandomID() {
+        return Array.from({ length: 5 }, () => Math.floor(Math.random() * 9)).join('');
+    }
 
-            setTimeout(() => {
-                animateAmount(amountElement, amount);
-            }, 100);
+    function generateRandomAmount() {
+        return Math.floor(Math.random() * (800 - 50 + 1)) + 50;
+    }
 
-            return historyItem;
-        }
-
-        function generateRandomID() {
-            const digits = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-            let id = '';
-            for (let i = 0; i < 5; i++) {
-                const randomIndex = Math.floor(Math.random() * digits.length);
-                id += digits[randomIndex];
+    function animateAmount(element, finalAmount) {
+        let currentAmount = 0;
+        const interval = setInterval(() => {
+            if (currentAmount < finalAmount) {
+                currentAmount += Math.ceil(finalAmount / 50);
+                element.textContent = `+ $${Math.min(currentAmount, finalAmount)}.${(Math.random() * 0.99).toFixed(2).split('.')[1]}`;
+            } else {
+                clearInterval(interval);
             }
-            return id;
-        }
+        }, 10);
+    }
 
-        function generateRandomAmount() {
-            return Math.floor(Math.random() * (800 - 50 + 1)) + 50;
-        }
+    function refreshTransferHistory() {
+        transferHistoryContainer.innerHTML = '';
+        Array.from({ length: 6 }).forEach(() => {
+            const randomID = generateRandomID();
+            const randomAmount = generateRandomAmount();
+            const historyItem = createHistoryItem(randomID, randomAmount);
+            transferHistoryContainer.appendChild(historyItem);
+        });
+    }
 
-        function animateAmount(element, finalAmount) {
-            let currentAmount = 0;
-            const interval = setInterval(() => {
-                if (currentAmount < finalAmount) {
-                    currentAmount += Math.ceil(finalAmount / 50);
-                    const randomDecimal = (Math.random() * 0.99).toFixed(2);
-                    element.textContent = `+ $${Math.min(currentAmount, finalAmount).toFixed(0)}.${randomDecimal.slice(2)}`;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 10);
-        }
+    refreshTransferHistory(); // Populate initial
+    setInterval(refreshTransferHistory, 3000); // Refresh every 3s
 
-        function refreshTransferHistory() {
-            transferHistoryContainer.innerHTML = '';
-            for (let i = 0; i < 6; i++) {
-                const randomID = generateRandomID();
-                const randomAmount = generateRandomAmount();
-                const historyItem = createHistoryItem(randomID, randomAmount);
-                transferHistoryContainer.appendChild(historyItem);
-            }
-        }
-
-        refreshTransferHistory(); // Initial population
-        setInterval(refreshTransferHistory, 3000); // Refresh every 3 seconds
-
-        // Double press effect for buttons
-        const luckyJetButton = document.getElementById('luckyJetButton');
-        const minesButton = document.getElementById('minesButton');
-
-        function triggerDoublePress(button) {
-            button.classList.add('press');
+    // Handle double press effect
+    const luckyJetButton = document.getElementById('luckyJetButton');
     
-            setTimeout(() => {
-                button.classList.remove('press');
-            }, 500);
+    // Promo code copy functionality
+    const copyPromoCodeButton = document.getElementById('copyPromoCodeButton');
+    const notificationElement = document.getElementById('notification');
+
+    copyPromoCodeButton.addEventListener('click', async function () {
+        try {
+            const promoCode = 'FLYWINCASH';
+            await navigator.clipboard.writeText(promoCode);
+            notificationElement.innerHTML = `Промокод <span class="yellow-text">${promoCode}</span> был скопирован`;
+            notificationElement.classList.add('show');
+            setTimeout(() => notificationElement.classList.remove('show'), 3000);
+        } catch (err) {
+            alert('Ошибка копирования промокода.');
         }
-
-        function startDoublePressCycle() {
-            triggerDoublePress(luckyJetButton);
-            setTimeout(() => {
-                triggerDoublePress(minesButton);
-            }, 1000);
-        }
-
-        setInterval(startDoublePressCycle, 3000); // Repeat cycle every 3 seconds
-
-        // Functionality for copying promo code and showing notification
-        const copyPromoCodeButton = document.getElementById('copyPromoCodeButton');
-        const notificationElement = document.getElementById('notification');
-
-        copyPromoCodeButton.addEventListener('click', function () {
-    const promoCode = 'FLYWINCASH';
-    navigator.clipboard.writeText(promoCode).then(function () {
-        // Afișăm notificarea
-        notificationElement.innerHTML = `Промокод <span class="yellow-text">${promoCode}</span> был скопирован`;
-        notificationElement.classList.add('show');
-
-        // Ascundem notificarea după 3 secunde
-        setTimeout(function () {
-            notificationElement.classList.remove('show');
-        }, 3000);
-    }, function () {
-        alert('Ошибка копирования промокода.');
     });
 });
-
-    });
 </script>
 
 </body>
