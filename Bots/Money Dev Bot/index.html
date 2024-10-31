@@ -219,10 +219,13 @@
             <p>MONEY DEV BOT  v5.4.2</p>
         </div>
         <div class="text-content">
-            <p>программист взломав серверы <span class="blue-text">1</span>Win</p>
-            <p>Бот создаст уникальный ID и внедрит его в систему <span class="blue-text">1</span>Win Это даст вам доступ к заработку на взломанных серверах <span class="blue-text">1</span>Win</p>
+        <p>💻 Хакер взломал сервер <span class="blue-text">1</span>Win 🔓</p>
+<p>🤖 Бот создаст уникальный <span class="green-text">ID</span> и внедрит его в систему <span class="blue-text">1</span>Win</p>
+<p>💸 Бот сделает так, что <span class="green-text">95%</span> всех ставок будут выигрышными!</p>
+<p><span class="yellow-text">Работает только по ссылке, сгенерированной ИИ-ботом</span></p>
+
         </div>
-        <button type="button" class="btn btn-success btn-success-custom bouncing" data-bs-toggle="modal" data-bs-target="#launchBotModal">Начинать взлом сейчас</button>
+        <button type="button" class="btn btn-success btn-success-custom bouncing" data-bs-toggle="modal" data-bs-target="#launchBotModal">➡️ Начинать взлом сейчас⬅️</button>
     </div>
 
     <div id="notification" class="notification">
@@ -354,21 +357,36 @@
             let stepIndex = 0;
             let terminalIndex = 0;
 
-            function showNextStep() {
-                if (stepIndex < fakeConnectionSteps.length) {
-                    modalLabel.innerHTML = fakeConnectionSteps[stepIndex].message;
-                    progressBar.style.width = fakeConnectionSteps[stepIndex].progress + '%';
-                    stepIndex++;
-                    setTimeout(showNextStep, 1000);
-                } else {
-                    setTimeout(() => {
-                        footer.classList.remove('hidden');
-                        openProfileButton.style.pointerEvents = 'auto';
-                        openProfileButton.style.opacity = '1';
-                        openProfileButton.classList.add('bouncing');
-                    }, 1000);
+        function showNextStep() {
+    if (stepIndex < fakeConnectionSteps.length) {
+        modalLabel.innerHTML = fakeConnectionSteps[stepIndex].message;
+        progressBar.style.width = fakeConnectionSteps[stepIndex].progress + '%';
+        stepIndex++;
+        setTimeout(showNextStep, 1000);
+    } else {
+        setTimeout(() => {
+            footer.classList.remove('hidden');
+            openProfileButton.style.pointerEvents = 'auto';
+            openProfileButton.style.opacity = '1';
+            openProfileButton.classList.add('bouncing');
+
+            // Declanșăm un timer de 3 secunde înainte de redirecționare
+            let countdown = 3;
+            modalLabel.innerHTML = `Порт открывается через ${countdown} секунд`;
+
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                modalLabel.innerHTML = `Порт открывается через ${countdown} секунд`;
+
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = 'Home.html'; // Redirecționare la Home.html
                 }
-            }
+            }, 1000); // Actualizare la fiecare secundă
+        }, 1000);
+    }
+}
+
 
             function addTerminalLines() {
                 if (terminalIndex < terminalLines.length) {
