@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>luckygames</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e2a38, #171b24);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
+
+        .container {
+            background: linear-gradient(145deg, #1e222a, #252a34);
+            border-radius: 25px;
+            padding: 25px;
+            width: 100%;
+            max-width: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .btn-success-custom {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            height: 50px;
+            font-size: 1.2em;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            background: linear-gradient(135deg, #681ce3, #8a35f1);
+        }
+
+        .btn-success-custom:hover {
+            background: linear-gradient(135deg, #4b0cad, #681ce3);
+            transform: scale(1.05);
+        }
+
+        .btn-success-custom.bouncing {
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-12px);
+            }
+
+            60% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .image-container {
+            width: 220px;
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .image-container img.active {
+            opacity: 1;
+        }
+
+        #channel-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            white-space: nowrap; /* Previne ruperea pe mai multe rânduri */
+        }
+
+        .text-content p {
+            font-size: 1.3em;
+            font-weight: 400;
+            line-height: 1.6;
+            white-space: nowrap; /* Previne ruperea pe mai multe rânduri */
+            margin-bottom: 15px;
+        }
+
+        .yellow-text {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .green-text {
+            color: #00FF00;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 80%;
+                padding: 20px;
+            }
+
+            #channel-title {
+                font-size: 1.8em;
+            }
+
+            .text-content p {
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                max-width: 90%;
+                padding: 15px;
+            }
+
+            .image-container {
+                width: 180px;
+                height: 130px;
+            }
+
+            #channel-title {
+                font-size: 1.6em;
+            }
+
+            .text-content p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="panel1" class="container">
+        <div class="image-container">
+            <img src="Resources/MoneyDev/image1.png" alt="Image 1" class="active">
+            <img src="Resources/MoneyDev/image2.png" alt="Image 2">
+            <img src="Resources/MoneyDev/image3.png" alt="Image 3">
+            <img src="Resources/MoneyDev/image4.png" alt="Image 4">
+        </div>
+        <div class="text-content white-text">
+            <p id="channel-title"></p>
+        </div>
+        <div class="text-content white-text">
+            <p id="channel-title">👑 MONEY DEV MD 👑</p>
+        </div>
+        <div class="text-content">
+            <p><strong>Pаздаю бота для заработка <span id="free-text" class="yellow-text"></span><span id="typing-emoji">✏️</span></strong></p>
+            <p><strong><span id="money-amount" class="green-text">+0 MDL</span></strong> каждый день </p>
+            <p>⬇️ Открой TG-Money Dev ⬇️</p>
+        </div>
+
+        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">💸 Открой 💸</button>
+    </div>
+
+    <script>
+        // Animația de fade-in la încărcare
+        window.addEventListener('load', function () {
+            document.body.classList.add('fade-in');
+            countUp(0, 3500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
+            typingEffect('free-text', 'БЕСПЛАТНО', 150, 'typing-emoji'); // Pornim efectul de scriere pentru "БЕСПЛАТНО"
+            startSlideshow(); // Pornim slideshow-ul automat
+        });
+
+        // Redirecționare la apăsarea butonului
+        document.getElementById('channel-button').addEventListener('click', function () {
+            window.location.href = "https://t.me/moneydevmd";
+        });
+
+        // Funcție pentru numărarea crescentă
+        function countUp(start, end, duration, elementId) {
+            const element = document.getElementById(elementId);
+            let startTime = null;
+
+            function animateCount(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = timestamp - startTime;
+                const currentValue = Math.min(Math.floor(progress / duration * (end - start) + start), end);
+                element.textContent = `+${currentValue} MDL`;
+                if (currentValue < end) {
+                    requestAnimationFrame(animateCount);
+                }
+            }
+
+            requestAnimationFrame(animateCount);
+        }
+
+        // Funcție pentru efectul de scriere (typing) cu emoji la final și eliminarea emoji-ului ✏️
+        function typingEffect(elementId, text, speed, emojiId) {
+            const element = document.getElementById(elementId);
+            const emoji = document.getElementById(emojiId);
+            let index = 0;
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else {
+                    // După terminarea scrierii, eliminăm emoji-ul
+                    emoji.style.display = 'none';
+                }
+            }
+
+            type();
+        }
+
+        // Funcție pentru slideshow automat
+        function startSlideshow() {
+            const images = document.querySelectorAll('.image-container img');
+            let currentIndex = 0;
+
+            function showNextImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }
+
+            setInterval(showNextImage, 3000); // Schimbă imaginea la fiecare 3 secunde
+        }
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)}.
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '844512134188476');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=844512134188476&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+</body>
+
+</html>
