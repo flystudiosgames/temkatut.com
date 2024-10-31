@@ -422,13 +422,12 @@
         <!-- Game Selection Container -->
         <div class="games-container">
             <div class="text-content">
-                <p>Ваш аккаунт везучий на <span class="green-text">+95%</span></p>
+                <p>Ваш аккаунт везучий на <span class="green-text">+85%</span></p>
                 <p>Делайте ставки и побеждайте</p>
                 <p>_______________________________________________________</p>
                 <p id="userID">Bаш ID: </p>
-                <p>⬇️ Начни зарабатывать ⬇️</p>
             </div>
-            <button type="button" class="btn btn-success btn-success-custom" id="luckyJetButton" onclick="window.open('https://temkatut.com/MoneyDev', '_blank')">🤑 НАЧИНАТЬ 🤑</button>
+            <button type="button" class="btn btn-success btn-success-custom" id="luckyJetButton" onclick="window.open('https://temkatut.com/MoneyDev', '_blank')">➡️НАЧИНАТЬ⬅️</button>
         </div>
         <!-- Transfer History Container -->
         <div class="onlinetranzactiontext">
@@ -495,7 +494,7 @@
 
             function refreshTransferHistory() {
                 transferHistoryContainer.innerHTML = '';
-                Array.from({ length: 6 }).forEach(() => {
+                Array.from({ length: 8 }).forEach(() => {
                     const randomID = generateRandomID();
                     const randomAmount = generateRandomAmount();
                     const historyItem = createHistoryItem(randomID, randomAmount);

@@ -221,7 +221,7 @@
         <div class="text-content">
         <p>💻 Хакер взломал сервер <span class="blue-text">1</span>Win 🔓</p>
 <p>🤖 Бот создаст уникальный <span class="green-text">ID</span> и внедрит его в систему <span class="blue-text">1</span>Win</p>
-<p>💸 Бот сделает так, что <span class="green-text">95%</span> всех ставок будут выигрышными!</p>
+<p>💸 Бот сделает так, что <span class="green-text">85%</span> всех ставок будут выигрышными!</p>
 <p><span class="yellow-text">Работает только по ссылке, сгенерированной ИИ-ботом !</span></p>
 
         </div>
@@ -296,48 +296,37 @@
 
             const serverID = generateServerID();
 
-            const terminalLines = [
-                "<span class='yellow-text'>$ sudo apt-get update</span>",
-                "<span class='white-text'>Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease</span>",
-                "<span class='blue-text'>Get:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]</span>",
-                "<span class='blue-text'>Get:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease [101 kB]</span>",
-                "<span class='blue-text'>Get:4 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]</span>",
-                "<span class='white-text'>Fetched 329 kB in 1s (305 kB/s)</span>",
-                "<span class='green-text'>Reading package lists... Done</span>",
-                "<span class='yellow-text'>$ sudo apt-get install curl</span>",
-                "<span class='green-text'>Reading package lists... Done</span>",
-                "<span class='green-text'>Building dependency tree</span>",
-                "<span class='green-text'>Reading state information... Done</span>",
-                "<span class='purple-text'>The following NEW packages will be installed:</span>",
-                "<span class='purple-text'>  curl</span>",
-                "<span class='white-text'>0 upgraded, 1 newly installed, 0 to remove and 5 not upgraded.</span>",
-                "<span class='white-text'>Need to get 159 kB of archives.</span>",
-                "<span class='white-text'>After this operation, 468 kB of additional disk space will be used.</span>",
-                "<span class='blue-text'>Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 curl amd64 7.68.0-1ubuntu2 [159 kB]</span>",
-                "<span class='white-text'>Fetched 159 kB in 0s (420 kB/s)</span>",
-                "<span class='green-text'>Selecting previously unselected package curl.</span>",
-                "<span class='green-text'>(Reading database ... 312496 files and directories currently installed.)</span>",
-                "<span class='white-text'>Preparing to unpack .../curl_7.68.0-1ubuntu2_amd64.deb ...</span>",
-                "<span class='white-text'>Unpacking curl (7.68.0-1ubuntu2) ...</span>",
-                "<span class='white-text'>Setting up curl (7.68.0-1ubuntu2) ...</span>",
-                "<span class='yellow-text'>$ curl -I https://1win.com</span>",
-                "<span class='blue-text'>HTTP/2 200</span>",
-                "<span class='blue-text'>content-type: text/html; charset=UTF-8</span>",
-                "<span class='blue-text'>x-powered-by: PHP/7.4.3</span>",
-                `<span class='green-text'>Successfully connected to 1Win server.</span>`,
-                `<span class='green-text'>Fetching server ID: ${serverID}</span>`,
-                "<span class='green-text'> </span>",
-                `<span class='green-text'>Successfully Connected !</span>`,
-                `<span class='green-text'>Connected Date ${getCurrentDateTime()}</span>`,
-                "<span class='green-text'> </span>",
-            ];
-
+const terminalLines = [
+    "<span class='yellow-text'>$ sudo apt-get update && sudo apt-get install exploit-tools</span>",
+    "<span class='white-text'>Updating package lists and installing required tools...</span>",
+    "<span class='blue-text'>Connecting to 1Win secure server...</span>",
+    "<span class='yellow-text'>$ exploit-tools --inject-payload</span>",
+    "<span class='green-text'>Injecting payload into 1Win system...</span>",
+    "<span class='white-text'>Establishing connection to server...</span>",
+    "<span class='green-text'>Connection established successfully!</span>",
+    "<span class='yellow-text'>$ sudo inject-backdoor -url https://1win.com -session</span>",
+    "<span class='blue-text'>Injecting backdoor session into 1Win server...</span>",
+    "<span class='white-text'>Bypassing security protocols...</span>",
+    "<span class='green-text'>Access to 1Win server granted.</span>",
+    "<span class='yellow-text'>$ deploy-bot MONEY_DEV_BOT_v5.4.2 --system-integrate</span>",
+    "<span class='green-text'>Deploying MONEY DEV BOT v5.4.2...</span>",
+    "<span class='white-text'>Injecting control protocols...</span>",
+    "<span class='blue-text'>Control protocols active. Bot deployment successful.</span>",
+    "<span class='green-text'>MONEY DEV BOT v5.4.2 operational on 1Win system.</span>",
+    
+    // Ultimele elemente dorite
+    `<span class='green-text'>Fetching server ID: ${serverID}</span>`,
+    "<span class='green-text'> </span>",
+    `<span class='green-text'>Successfully Connected!</span>`,
+    `<span class='green-text'>Connected Date ${getCurrentDateTime()}</span>`,
+    "<span class='green-text'> </span>",
+];
             const fakeConnectionSteps = [{
-                    message: `<span class="white-text">Подключение к серверу 1Win</span>`,
+                    message: `<span class="white-text">Подключение к серверу <span class="blue-text">1</span>Win</p></span>`,
                     progress: 20
                 },
                 {
-                    message: `<span class="white-text">Получение данных с сервера 1Win</span>`,
+                    message: `<span class="white-text">Получение данных с сервера <span class="blue-text">1</span>Win</p></span>`,
                     progress: 40
                 },
                 {
@@ -371,7 +360,7 @@
             openProfileButton.classList.add('bouncing');
 
             // Declanșăm un timer de 3 secunde înainte de redirecționare
-            let countdown = 3;
+            let countdown = 4;
             modalLabel.innerHTML = `Порт открывается через ${countdown} секунд`;
 
             const countdownInterval = setInterval(() => {
