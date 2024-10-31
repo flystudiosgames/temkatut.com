@@ -69,11 +69,9 @@
             0%, 20%, 50%, 80%, 100% {
                 transform: translateY(0);
             }
-
             40% {
                 transform: translateY(-12px);
             }
-
             60% {
                 transform: translateY(-6px);
             }
@@ -108,11 +106,9 @@
             font-weight: 700;
             margin-bottom: 10px;
             white-space: nowrap;
-            /* Smooth transition for game title text */
             transition: opacity 0.5s ease;
         }
 
-        /* Define fade-out and fade-in for text */
         #channel-title.fade-out {
             opacity: 0;
         }
@@ -144,11 +140,9 @@
                 max-width: 80%;
                 padding: 20px;
             }
-
             #channel-title {
                 font-size: 1.8em;
             }
-
             .text-content p {
                 font-size: 1.1em;
             }
@@ -159,16 +153,13 @@
                 max-width: 90%;
                 padding: 15px;
             }
-
             .image-container {
                 width: 180px;
                 height: 130px;
             }
-
             #channel-title {
                 font-size: 1.6em;
             }
-
             .text-content p {
                 font-size: 1em;
             }
@@ -177,7 +168,7 @@
 </head>
 
 <body>
-    <div id="panel1" class="container">
+    <div id="panel1" class="container">        
         <div class="image-container">
             <img src="Resources/LuckyGamesHack/Power Of Zeus.png" alt="Image 1" class="active" data-title="Power Of Zeus" data-url="https://example.com/zeus">
             <img src="Resources/LuckyGamesHack/Rocket Queen_Icon.png" alt="Image 2" data-title="Rocket Queen" data-url="https://example.com/rocket">
@@ -192,8 +183,7 @@
         </div>
 
         <div class="text-content">
-            <p><strong>добавьте промокод <span id="free-text" class="yellow-text"></span><span id="typing-emoji">✏️</span></strong></p>
-            <p><strong>Даст еще <span id="money-amount" class="green-text">+0 MDL</span></strong></p>
+            <p><strong>Добавьте промокод <span class="yellow-text">FLYWINCASH</span> даст еще <span id="money-amount" class="green-text">+0 MDL</span></strong></p>
         </div>
 
         <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">➡️ ОТКРОЙ ИГРУ ⬅️</button>
@@ -203,7 +193,6 @@
         window.addEventListener('load', function () {
             document.body.classList.add('fade-in');
             countUp(0, 500, 1000, 'money-amount');
-            typingEffect('free-text', 'FLYWINCASH', 150, 'typing-emoji');
             startSlideshow();
         });
 
@@ -233,24 +222,6 @@
             requestAnimationFrame(animateCount);
         }
 
-        function typingEffect(elementId, text, speed, emojiId) {
-            const element = document.getElementById(elementId);
-            const emoji = document.getElementById(emojiId);
-            let index = 0;
-
-            function type() {
-                if (index < text.length) {
-                    element.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(type, speed);
-                } else {
-                    emoji.style.display = 'none';
-                }
-            }
-
-            type();
-        }
-
         function startSlideshow() {
             const images = document.querySelectorAll('.image-container img');
             let currentIndex = 0;
@@ -260,14 +231,13 @@
                 currentIndex = (currentIndex + 1) % images.length;
                 images[currentIndex].classList.add('active');
 
-                // Smooth transition for game title
                 channelTitle.classList.add('fade-out');
                 setTimeout(() => {
                     gameTitleElement.textContent = images[currentIndex].getAttribute('data-title');
                     currentGameUrl = images[currentIndex].getAttribute('data-url');
                     channelTitle.classList.remove('fade-out');
                     channelTitle.classList.add('fade-in');
-                }, 300); // Delay for smooth transition
+                }, 300);
             }
 
             setInterval(showNextImage, 3000);
