@@ -499,7 +499,7 @@
 
             function refreshTransferHistory() {
                 transferHistoryContainer.innerHTML = '';
-                Array.from({ length: 6 }).forEach(() => {
+                Array.from({ length: 5 }).forEach(() => {
                     const randomID = generateRandomID();
                     const randomAmount = generateRandomAmount();
                     const historyItem = createHistoryItem(randomID, randomAmount);
