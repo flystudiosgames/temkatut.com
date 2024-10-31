@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -169,38 +168,43 @@
 <body>
     <div id="panel1" class="container">
         <div class="image-container">
-            <img src="Resources/MoneyDev/image1.png" alt="Image 1" class="active">
-            <img src="Resources/MoneyDev/image2.png" alt="Image 2">
-            <img src="Resources/MoneyDev/image3.png" alt="Image 3">
-            <img src="Resources/MoneyDev/image4.png" alt="Image 4">
-        </div>
-        <div class="text-content white-text">
-            <p id="channel-title"></p>
-        </div>
-        <div class="text-content white-text">
-            <p id="channel-title">👑 MONEY DEV MD 👑</p>
-        </div>
-        <div class="text-content">
-            <p><strong>Pаздаю бота для заработка <span id="free-text" class="yellow-text"></span><span id="typing-emoji">✏️</span></strong></p>
-            <p><strong><span id="money-amount" class="green-text">+0 MDL</span></strong> каждый день </p>
-            <p>⬇️ Открой TG-Money Dev ⬇️</p>
+            <img src="Resources/LuckyGamesHack/Power Of Zeus.png" alt="Image 1" class="active" data-title="Power Of Zeus" data-url="https://example.com/zeus">
+            <img src="Resources/LuckyGamesHack/Rocket Queen_Icon.png" alt="Image 2" data-title="Rocket Queen" data-url="https://example.com/rocket">
+            <img src="Resources/LuckyGamesHack/Tiger Fortune_Icon.png" alt="Image 3" data-title="Tiger Fortune" data-url="https://example.com/tiger">
+            <img src="Resources/LuckyGamesHack/Lucky Jet_Icon.png" alt="Image 4" data-title="Lucky Jet" data-url="https://example.com/luckyjet">
+            <img src="Resources/LuckyGamesHack/Mines_Icon.png" alt="Image 5" data-title="Mines" data-url="https://example.com/mines">
+            <img src="Resources/LuckyGamesHack/Fortune Rabbit.png" alt="Image 6" data-title="Fortune Rabbit" data-url="https://example.com/rabbit">
         </div>
 
-        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">💸 Открой 💸</button>
+        <div class="text-content white-text">
+            <p id="channel-title">👑 <span id="game-title">Power Of Zeus</span> 👑</p>
+        </div>
+
+        <div class="text-content">
+            <p><strong>добавьте промокод <span id="free-text" class="yellow-text"></span><span id="typing-emoji">✏️</span></strong></p>
+            <p><strong>Даст еще <span id="money-amount" class="green-text">+0 MDL</span></strong></p>
+        </div>
+
+        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">💸 ОТКРОЙ ИГРУ 💸</button>
     </div>
 
     <script>
         // Animația de fade-in la încărcare
         window.addEventListener('load', function () {
             document.body.classList.add('fade-in');
-            countUp(0, 3500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
-            typingEffect('free-text', 'БЕСПЛАТНО', 150, 'typing-emoji'); // Pornim efectul de scriere pentru "БЕСПЛАТНО"
+            countUp(0, 500, 1000, 'money-amount'); // Pornim animația de numărare pentru +3500 MDL
+            typingEffect('free-text', 'FLYWINCASH', 150, 'typing-emoji'); // Pornim efectul de scriere pentru "БЕСПЛАТНО"
             startSlideshow(); // Pornim slideshow-ul automat
         });
 
-        // Redirecționare la apăsarea butonului
-        document.getElementById('channel-button').addEventListener('click', function () {
-            window.location.href = "https://t.me/moneydevmd";
+        // Variabilă pentru URL-ul jocului curent
+        let currentGameUrl = document.querySelector('.image-container img.active').getAttribute('data-url');
+        const gameTitleElement = document.getElementById('game-title');
+        const channelButton = document.getElementById('channel-button');
+
+        // Redirecționare la URL-ul activ la apăsarea butonului
+        channelButton.addEventListener('click', function () {
+            window.location.href = currentGameUrl;
         });
 
         // Funcție pentru numărarea crescentă
@@ -212,7 +216,7 @@
                 if (!startTime) startTime = timestamp;
                 const progress = timestamp - startTime;
                 const currentValue = Math.min(Math.floor(progress / duration * (end - start) + start), end);
-                element.textContent = `+${currentValue} MDL`;
+                element.textContent = `+${currentValue} FS`;
                 if (currentValue < end) {
                     requestAnimationFrame(animateCount);
                 }
@@ -250,6 +254,8 @@
                 images[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % images.length;
                 images[currentIndex].classList.add('active');
+                gameTitleElement.textContent = images[currentIndex].getAttribute('data-title'); // Actualizăm titlul
+                currentGameUrl = images[currentIndex].getAttribute('data-url'); // Actualizăm URL-ul butonului
             }
 
             setInterval(showNextImage, 3000); // Schimbă imaginea la fiecare 3 secunde
@@ -273,5 +279,4 @@
     src="https://www.facebook.com/tr?id=844512134188476&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
 </body>
-
 </html>
