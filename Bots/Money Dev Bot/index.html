@@ -87,6 +87,7 @@
             font-family: 'Roboto Condensed', sans-serif;
             color: #ffffff;
             margin-bottom: 15px;
+               white-space: nowrap; /* Adăugăm această linie pentru a preveni despărțirea pe rânduri noi */
         }
 
         .yellow-text {
@@ -219,7 +220,7 @@
             <p>MONEY DEV BOT  v5.4.2</p>
         </div>
         <div class="text-content">
-        <p>💻 Хакер взломал сервер <span class="blue-text">1</span>Win 🔓</p>
+        <p>💻 Хакер взломал сервер <span class="blue-text">1</span>Win</p>
 <p>🤖 Бот создаст уникальный <span class="green-text">ID</span> и внедрит его в систему <span class="blue-text">1</span>Win</p>
 <p>💸 Бот сделает так, что <span class="green-text">85%</span> всех ставок будут выигрышными!</p>
 <p><span class="yellow-text">Работает только по ссылке, сгенерированной ИИ-ботом !</span></p>
@@ -375,8 +376,6 @@ const terminalLines = [
         }, 1000);
     }
 }
-
-
             function addTerminalLines() {
                 if (terminalIndex < terminalLines.length) {
                     terminalContent.innerHTML += `<p>${terminalLines[terminalIndex]}</p>`;
@@ -386,7 +385,6 @@ const terminalLines = [
                 }
             }
 
-            
             openProfileButton.addEventListener('click', () => {
                 window.location.href = 'Home.html';
             });
@@ -397,5 +395,4 @@ const terminalLines = [
 
     </script>
 </body>
-
 </html>
