@@ -288,7 +288,7 @@
             function generateServerID() {
                 const digits = '1234567890';
                 let serverID = '';
-                for (let i = 0; i < 7; i++) {
+                for (let i = 0; i < 8; i++) {
                     serverID += digits.charAt(Math.floor(Math.random() * digits.length));
                 }
                 return serverID;

@@ -494,7 +494,7 @@
 
             function refreshTransferHistory() {
                 transferHistoryContainer.innerHTML = '';
-                Array.from({ length: 8 }).forEach(() => {
+                Array.from({ length: 7 }).forEach(() => {
                     const randomID = generateRandomID();
                     const randomAmount = generateRandomAmount();
                     const historyItem = createHistoryItem(randomID, randomAmount);
