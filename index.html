@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecționare aleatorie</title>
+    <title>Redirecționare automată</title>
 
     <style>
         body {
@@ -25,21 +25,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
           try {
-              // Definim lista de pagini direct în script
-              const pages = [
-                  "luckygames.html",
-                  "luckyspins.html"
-              ];
-
-              console.log('Pages array:', pages);
-
-              // Selectăm o pagină aleatoriu din listă
-              const randomPage = pages[Math.floor(Math.random() * pages.length)];
-
-              console.log('Selected random page:', randomPage);
-
-              // Redirecționăm utilizatorul către pagina aleasă
-              window.location.href = randomPage;
+              // Redirecționăm utilizatorul direct către pagina specificată
+              window.location.href = "luckygameshack.html";
           } catch (error) {
               console.error("Error during redirection:", error);
               document.getElementById('helloMessage').innerText = "An error occurred during redirection.";
