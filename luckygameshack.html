@@ -61,6 +61,11 @@
             transform: scale(1.05);
         }
 
+        .btn-success-custom.clicked {
+            animation: pressButton 0.3s ease;
+            background-color: #5714c2; /* Culoarea mai închisă */
+        }
+
         .btn-success-custom.bouncing {
             animation: bounce 1s infinite;
         }
@@ -135,6 +140,33 @@
             font-weight: bold;
         }
 
+        #notification {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            background-color: #4c238e;
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            display: none;
+            transition: opacity 0.5s ease, top 0.5s ease;
+        }
+
+        #notification.show {
+            display: block;
+            opacity: 1;
+        }
+
+        #notification.hide {
+            opacity: 0;
+        }
+
         @media (max-width: 768px) {
             .container {
                 max-width: 80%;
@@ -170,15 +202,15 @@
 <body>
     <div id="panel1" class="container">
         <div class="image-container">
-            <img src="Resources/LuckyGamesHack/Rocket Queen_Icon.png" alt="Image 1" class="active" data-title="Rocket Queen" data-url="https://1wxxlb.com/v3/2451/rocket-queen?p=r5n0">
-            <img src="Resources/LuckyGamesHack/Tiger Fortune_Icon.png" alt="Image 2" data-title="Tiger Fortune" data-url="https://1wxxlb.com/v3/fortune-tiger?p=gy44">
-            <img src="Resources/LuckyGamesHack/Lucky Jet_Icon.png" alt="Image 3" data-title="Lucky Jet" data-url="https://1wfqtr.life/v3/lucky-jet-updated?p=hvdq">
-            <img src="Resources/LuckyGamesHack/Mines_Icon.png" alt="Image 4" data-title="Mines" data-url="https://1wfqtr.life/v3/2158/1win-mines?p=g95c">
-            <img src="Resources/LuckyGamesHack/Fortune Rabbit.png" alt="Image 5" data-title="Fortune Rabbit" data-url="https://1wxxlb.com/v3/2618/fortune-rabbit?p=xh1i">
+            <img src="Resources/LuckyGamesHack/Rocket Queen_Icon.png" alt="Image 1" class="active" data-title="👸 Rocket Queen 👸" data-url="https://1wxxlb.com/v3/2451/rocket-queen?p=r5n0">
+            <img src="Resources/LuckyGamesHack/Tiger Fortune_Icon.png" alt="Image 2" data-title="🐯 Tiger Fortune 🐯" data-url="https://1wxxlb.com/v3/fortune-tiger?p=gy44">
+            <img src="Resources/LuckyGamesHack/Lucky Jet_Icon.png" alt="Image 3" data-title="🚀 Lucky Jet 🚀" data-url="https://1wfqtr.life/v3/lucky-jet-updated?p=hvdq">
+            <img src="Resources/LuckyGamesHack/Mines_Icon.png" alt="Image 4" data-title="⭐ Mines ⭐" data-url="https://1wfqtr.life/v3/2158/1win-mines?p=g95c">
+            <img src="Resources/LuckyGamesHack/Fortune Rabbit.png" alt="Image 5" data-title="🐰 Fortune Rabbit 🐰" data-url="https://1wxxlb.com/v3/2618/fortune-rabbit?p=xh1i">
         </div>
 
         <div class="text-content white-text">
-            <p id="channel-title" class="fade-in">💵 <span id="game-title">Rocket Queen</span> 💵</p>
+            <p id="channel-title" class="fade-in"><span id="game-title">👸 Rocket Queen 👸</span></p>
         </div>
 
         <div class="text-content">
@@ -186,10 +218,45 @@
             <p><strong>Даст еще <span id="money-amount" class="green-text">+0 MDL</span></strong></p>
         </div>
 
+        <button type="button" class="btn btn-success btn-success-custom promo-btn" id="copyPromoCodeButton">
+            СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span>
+        </button>
+        <p><strong></strong></p>
         <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button">➡️ ОТКРОЙ ИГРУ ⬅️</button>
     </div>
 
+    <div id="notification">Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован</div>
+
     <script>
+        function copyPromoCode() {
+            const copyButton = document.getElementById('copyPromoCodeButton');
+
+            copyButton.classList.add('clicked');
+
+            setTimeout(() => {
+                copyButton.classList.remove('clicked');
+            }, 300);
+
+            navigator.clipboard.writeText("FLYWINCASH").then(() => {
+                showNotification("Промокод <span class='yellow-text'>FLYWINCASH</span> был скопирован");
+            }).catch(err => {
+                alert("Ошибка копирования: " + err);
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = message;
+            notification.classList.remove('hide');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+                notification.classList.add('hide');
+            }, 3000);
+        }
+
+        document.getElementById('copyPromoCodeButton').addEventListener('click', copyPromoCode);
+
         window.addEventListener('load', function () {
             document.body.classList.add('fade-in');
             countUp(0, 500, 1000, 'money-amount');
