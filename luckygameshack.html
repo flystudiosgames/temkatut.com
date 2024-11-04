@@ -75,20 +75,23 @@
         }
 
         /* Promo Button (Copy Promo Code) */
-        .promo-btn-custom {
-            background: linear-gradient(135deg, #681ce3, #8a35f1);
-            font-family: 'Roboto', sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #ffffff;
-            border: none;
-            width: 100%;
-            height: 50px;
-            font-size: 1.2em;
-            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            margin-top: 10px;
-        }
+    .promo-btn-custom {
+    background: linear-gradient(135deg, #681ce3, #8a35f1);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    height: 50px;
+    font-size: 1.2em;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    white-space: nowrap; /* Previene ruperea textului pe rânduri */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ascunde textul excedent */
+}
 
         /* Channel Button (Open Game) */
         .channel-btn-custom {
@@ -212,6 +215,10 @@
         }
 
         @media (max-width: 576px) {
+              .promo-btn-custom {
+        font-size: 1em; /* Diminuează dimensiunea fontului pe ecrane mici */
+        padding: 0 10px; /* Ajustează paddingul */
+    }
             .container {
                 max-width: 90%;
                 padding: 15px;
