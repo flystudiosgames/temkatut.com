@@ -41,6 +41,39 @@
             text-align: center;
         }
 
+        /* Particle container */
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Particle style */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(50px * var(--random-direction)));
+                opacity: 0;
+            }
+        }
+
         /* Promo Button (Copy Promo Code) */
         .promo-btn-custom {
             background: linear-gradient(135deg, #681ce3, #8a35f1);
@@ -165,10 +198,6 @@
             opacity: 1;
         }
 
-        #notification.hide {
-            opacity: 0;
-        }
-
         @media (max-width: 768px) {
             .container {
                 max-width: 80%;
@@ -202,6 +231,8 @@
 </head>
 
 <body>
+    <div id="particle-container"></div>
+
     <div id="panel1" class="container">
         <div class="image-container">
             <img src="Resources/LuckyGamesHack/Rocket Queen_Icon.png" alt="Image 1" class="active" data-title="👸 Rocket Queen 👸" data-url="https://1wxxlb.com/v3/2451/rocket-queen?p=r5n0">
@@ -216,7 +247,7 @@
         </div>
 
         <div class="text-content">
-            <p><strong>Начните зарабатывать прямо сейчас</span></strong></p>
+            <p><strong>Начните зарабатывать прямо сейчас</strong></p>
             <p><strong>Добавьте промокод <span class="yellow-text">FLYWINCASH</span></strong></p>
             <p><strong>Даст еще <span id="money-amount" class="green-text">+0 MDL</span></strong></p>
         </div>
@@ -225,7 +256,7 @@
             СКОПИРОВАТЬ КОД : <span class="yellow-text">FLYWINCASH</span>
         </button>
         <p><strong></strong></p>
-        <button type="button" class="btn btn-success channel-btn-custom bouncing" id="channel-button">
+        <button type="button" class="btn btn-success channel-btn-custom" id="channel-button">
             ➡️ ОТКРОЙ ИГРУ ⬅️
         </button>
     </div>
@@ -233,15 +264,24 @@
     <div id="notification">Промокод <span class="yellow-text">FLYWINCASH</span> был скопирован</div>
 
     <script>
+        function createParticles() {
+            const particleContainer = document.getElementById('particle-container');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.opacity = Math.random();
+                particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                particle.style.setProperty('--random-direction', Math.random() > 0.5 ? 1 : -1);
+
+                particleContainer.appendChild(particle);
+            }
+        }
+
         function copyPromoCode() {
-            const copyButton = document.getElementById('copyPromoCodeButton');
-
-            copyButton.classList.add('clicked');
-
-            setTimeout(() => {
-                copyButton.classList.remove('clicked');
-            }, 300);
-
             navigator.clipboard.writeText("FLYWINCASH").then(() => {
                 showNotification("Промокод <span class='yellow-text'>FLYWINCASH</span> был скопирован");
             }).catch(err => {
@@ -252,11 +292,9 @@
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.innerHTML = message;
-            notification.classList.remove('hide');
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
-                notification.classList.add('hide');
             }, 3000);
         }
 
@@ -266,6 +304,7 @@
             document.body.classList.add('fade-in');
             countUp(0, 500, 1000, 'money-amount');
             startSlideshow();
+            createParticles();
         });
 
         let currentGameUrl = document.querySelector('.image-container img.active').getAttribute('data-url');
