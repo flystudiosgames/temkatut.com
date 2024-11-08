@@ -62,24 +62,6 @@
             transform: scale(1.05);
         }
 
-        .btn-success-custom.bouncing {
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-12px);
-            }
-
-            60% {
-                transform: translateY(-6px);
-            }
-        }
-
         .image-container {
             width: 220px;
             height: 160px;
@@ -185,7 +167,7 @@
             <p>⬇️ Открой TG ⬇️</p>
         </div>
 
-        <button type="button" class="btn btn-success btn-success-custom bouncing" id="channel-button" onclick="trackButtonClick()" data-fb-event="ButtonClicked">Открой</button>
+        <button type="button" class="btn btn-success btn-success-custom" id="channel-button" onclick="trackButtonClick()" data-fb-event="ButtonClicked">Открой</button>
     </div>
 
     <script>
