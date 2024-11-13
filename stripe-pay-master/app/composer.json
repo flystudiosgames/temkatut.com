@@ -1,0 +1,19 @@
+{
+	"name": "danonek/stripe-pay",
+	"description": "Payment Gateway using Stripe",
+	"authors": [
+		{
+			"name": "Danonek",
+			"email": "damian@danonek.dev",
+			"homepage": "https://danonek.dev/"
+		}
+	],
+	"require": {
+		"tracy/tracy": "^2.7",
+		"stripe/stripe-php": "^7.61"
+	},
+	"autoload": {
+		"psr-4": { "Danonek\\": [ "modules" ] },
+		"classmap": [ "modules" ]
+	}
+}
