@@ -22,8 +22,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${req.headers.origin}/success.html`,
-            cancel_url: `${req.headers.origin}/cancel.html`,
+            success_url: `https://temkatut.com/stripePayTest/success.html`,
+            cancel_url: `https://temkatut.com/stripePayTest/cancel.html`,
         });
 
         res.json({ id: session.id });
@@ -32,4 +32,6 @@ app.post('/create-checkout-session', async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Ascultă pe portul oferit de serverul de găzduire sau pe 3000 în mod implicit
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

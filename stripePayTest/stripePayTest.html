@@ -53,10 +53,10 @@
 </div>
 
 <script>
-    const stripe = Stripe('your_test_publishable_key_here'); // Înlocuiește cu cheia ta publicabilă de test
+    const stripe = Stripe('pk_test_51QKi7QFyq1me4QfsFQVeZhUAlbADoTwBVWZ7w8nlc9zYwbwOy8zrMW4AvcrWHzT7bmzoe5iBCQ9iHpt7bifn190z001da1C9LW');
 
     document.getElementById('purchase-btn').addEventListener('click', () => {
-        fetch('/create-checkout-session', {
+        fetch('https://temkatut.com/stripePayTest/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
