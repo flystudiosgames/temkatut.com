@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const stripe = require('stripe')('your_test_secret_key_here'); // Înlocuiește cu cheia secretă de test
+const stripe = require('stripe')('sk_test_51QKi7QFyq1me4Qfs9guRAXF6K4nK0TZ97d2Ls0TGumpeEJpQumkoYVZRVlQaHMHj5HcYzU3ymnG4prr5adQmFcEX00uGQUnTOl'); // Cheia secretă de test
 const app = express();
 app.use(express.static('public'));
 app.use(express.json());
