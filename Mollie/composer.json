@@ -1,0 +1,17 @@
+{
+    "name": "victo/mollie",
+    "description": "Integration of Mollie API for payment testing.",
+    "autoload": {
+        "psr-4": {
+            "Victo\\Mollie\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Panfilii Victor",
+            "email": "100842948+flystudiosgames@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
