@@ -1,17 +1,20 @@
 {
-    "name": "victo/mollie",
-    "description": "Integration of Mollie API for payment testing.",
+    "name": "victor/mollie",
+    "description": "A project for integrating Mollie payment gateway.",
+    "type": "project",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Victo\\Mollie\\": "src/"
+            "Victor\\Mollie\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Panfilii Victor",
-            "email": "100842948+flystudiosgames@users.noreply.github.com"
+            "name": "victor"
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "mollie/mollie-api-php": "^2.75"
+    }
 }

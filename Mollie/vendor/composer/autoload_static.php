@@ -4,19 +4,35 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7ef0d0e1f2ae07129c694fc33a0804a6
+class ComposerStaticInitd8d8abe2a7aad4493ffefb3d536c1d12
 {
     public static $prefixLengthsPsr4 = array (
         'V' => 
         array (
-            'Victo\\Mollie\\' => 13,
+            'Victor\\Mollie\\' => 14,
+        ),
+        'M' => 
+        array (
+            'Mollie\\Api\\' => 11,
+        ),
+        'C' => 
+        array (
+            'Composer\\CaBundle\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Victo\\Mollie\\' => 
+        'Victor\\Mollie\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Mollie\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mollie/mollie-api-php/src',
+        ),
+        'Composer\\CaBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
     );
 
@@ -27,9 +43,9 @@ class ComposerStaticInit7ef0d0e1f2ae07129c694fc33a0804a6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ef0d0e1f2ae07129c694fc33a0804a6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ef0d0e1f2ae07129c694fc33a0804a6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7ef0d0e1f2ae07129c694fc33a0804a6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd8d8abe2a7aad4493ffefb3d536c1d12::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd8d8abe2a7aad4493ffefb3d536c1d12::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd8d8abe2a7aad4493ffefb3d536c1d12::$classMap;
 
         }, null, ClassLoader::class);
     }
