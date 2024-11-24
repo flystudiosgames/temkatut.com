@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bookshop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bookshop</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container" id="book-container"></div>
+    <div class="pagination" id="pagination-container"></div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">FAQs</a>
+        </div>
+        <p>© 2024 Dynamic Bookshop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let books = [];
+
+        async function loadBooks() {
+            try {
+                const response = await fetch('Resources/booksList.json');
+                books = await response.json();
+                displayBooks();
+                displayPagination();
+            } catch (error) {
+                console.error('Error loading books:', error);
+            }
+        }
+
+        function displayBooks() {
+            const container = document.getElementById('book-container');
+            container.innerHTML = '';
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const booksToShow = books.slice(start, end);
+
+            booksToShow.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.classList.add('book-item');
+                bookItem.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-price">${book.price}</div>
+                    <button class="add-to-cart">Show</button>
+                `;
+
+                bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
+                    localStorage.setItem('selectedBook', JSON.stringify(book));
+                    window.location.href = 'bookView.html';
+                });
+
+                container.appendChild(bookItem);
+            });
+        }
+
+        function displayPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(books.length / ITEMS_PER_PAGE);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.add('pagination-button');
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    displayBooks();
+                    displayPagination();
+                });
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        loadBooks();
+    </script>
+</body>
+</html>

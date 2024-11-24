@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bookView</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        .landing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 70px);
+            text-align: center;
+        }
+
+        .landing-container img {
+            max-width: 100%;
+            max-height: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-author {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .book-price {
+            font-size: 1em;
+            color: #4CAF50;
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: #27AE60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 25px;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #45a049;
+        }
+
+        .book-description {
+            font-size: 1em;
+            color: #666;
+            margin-top: 10px;
+            max-width: 600px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9em;
+        }
+
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>bookView</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="landing-container">
+        <img src="https://via.placeholder.com/800x600" alt="Book Cover">
+        <div class="book-author">Title</div>
+        <div class="book-price">$0.00</div>
+        <button id="buyButton" class="buy-button">Buy</button>
+        <div class="book-description">Description will appear here.</div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">FAQs</a>
+        </div>
+        <p>© 2024 Dynamic Bookshop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const book = JSON.parse(localStorage.getItem('selectedBook'));
+
+            if (book) {
+                document.querySelector('.landing-container img').src = book.image;
+                document.querySelector('.book-author').textContent = book.title;
+                document.querySelector('.book-price').textContent = book.price;
+                document.querySelector('.book-description').textContent = book.productDescription;
+            } else {
+                window.location.href = 'bookshop.html'; // Redirecționare înapoi dacă nu există date
+            }
+
+            document.getElementById('buyButton').addEventListener('click', () => {
+                window.location.href = 'livrare.html'; // Redirecționează la pagina livrare
+            });
+        });
+    </script>
+</body>
+</html>
