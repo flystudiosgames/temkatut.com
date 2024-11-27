@@ -8,12 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>Bookshop</h1>
+        <h1>Book Shop</h1>
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">About</a></li>
             </ul>
         </nav>
     </header>
@@ -27,7 +25,7 @@
             <a href="#">Terms of Service</a>
             <a href="#">FAQs</a>
         </div>
-        <p>© 2024 Dynamic Bookshop. All rights reserved.</p>
+        <p>Copyright © 2024  Book Store</p>
     </footer>
 
     <script>
@@ -37,7 +35,8 @@
 
         async function loadBooks() {
             try {
-                const response = await fetch('Resources/booksList.json');
+                const timestamp = new Date().getTime(); // obținem un timestamp pentru a asigura o cerere unică
+                const response = await fetch(`Resources/booksList.json?timestamp=${timestamp}`); // adăugăm timestamp-ul la URL
                 books = await response.json();
                 displayBooks();
                 displayPagination();
@@ -59,6 +58,7 @@
                 bookItem.innerHTML = `
                     <img src="${book.image}" alt="${book.title}">
                     <div class="book-title">${book.title}</div>
+                    <div class="book-subtitle">${book.subTitle}</div>  <!-- adăugat subtitle -->
                     <div class="book-price">${book.price}</div>
                     <button class="add-to-cart">Show</button>
                 `;
