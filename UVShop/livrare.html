@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livrare</title>
+    <link rel="stylesheet" href="styles/preview.css"> <!-- Link to the shared CSS -->
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* White background */
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center items */
+            background-color: #f1f1f3; /* Light gray background */
+            color: rgb(19, 19, 19); /* Dark text */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            cursor: pointer;
+            text-align: center;
+            flex-grow: 1; /* Allow header title to take available space */
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 80px 20px; /* Padding to avoid overlap with fixed header */
+            margin-top: 70px; /* Space for fixed header */
+            gap: 20px;
+            max-width: 1200px;
+            margin: 70px auto 0; /* Center the container */
+        }
+
+        .form-container, .product-details {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form styles */
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus {
+            border-color: #27ae60; /* Change to green on focus */
+            outline: none;
+        }
+
+        .delivery-option {
+            font-size: 1em;
+            color: #27ae60; /* Green for delivery option */
+            margin-bottom: 20px;
+        }
+
+        .place-order-button {
+            background-color: #007bff; /* Blue button */
+            color: white;
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .place-order-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Product details */
+        .product-details img {
+            width: 100%;
+            max-width: 512px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .product-details h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .product-details p {
+            font-size: 1em;
+            color: #333;
+        }
+
+        .product-details .livrare, .product-details .total {
+            font-weight: bold;
+            color: #27ae60; /* Green for delivery and total */
+        }
+
+        /* Back button */
+        .back-button {
+            background-color: #ff3b3b; /* Red background for back button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #c0392b; /* Darker red on hover */
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 2000;
+            text-align: center; /* Center text within button */
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+
+        .popup button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block; /* Make button a block element */
+    margin: 0 auto; /* Center horizontally */
+    text-align: center; /* Center text within button */
+}
+
+
+        .popup button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Overlay for the popup */
+        .overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Gray transparent background */
+            z-index: 1000; /* Behind the popup */
+        }
+
+        /* Delivery Details Title */
+.delivery-details-title {
+    text-align: center; /* Center the title */
+    margin-top: 30px; /* Space above the title */
+    margin-bottom: 10px; /* Space below the title */
+    font-size: 1.5em; /* Larger font size */
+    font-weight: bold; /* Make the title bold */
+    color: #27ae60; /* Green color for the title */
+    border-bottom: 2px solid #27ae60; /* Underline effect */
+    padding-bottom: 10px; /* Space below the underline */
+}
+
+/* Delivery Details Paragraph */
+.delivery-details {
+    text-align: left; /* Align text to the left */
+    margin: 20px auto; /* Center the text block */
+    font-size: 1em; /* Set font size */
+    color: #333; /* Dark gray color for text */
+    line-height: 1.6; /* Increase line height for readability */
+    padding: 0 15px; /* Add padding for left and right */
+    max-width: 600px; /* Limit width for better readability */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding inside the details box */
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <button class="back-button" onclick="window.location.href='bookview.html'">Back</button>
+        <h1 onclick="window.location.href='index.html'">Livrare</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Livrare</h2>
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label for="name">Nume:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Locatia:</label>
+                    <input type="text" id="location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="telegram">Telegram:</label>
+                    <input type="text" id="telegram" name="telegram" required>
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Codul Postal:</label>
+                    <input type="text" id="postalCode" name="postalCode" required>
+                </div>
+                <div class="delivery-option">
+                    Livrare standard: Gratuită
+                </div>
+                <button type="submit" class="place-order-button" id="placeOrderButton">Plasează comanda</button>
+            </form>
+        </div>
+
+        <div class="product-details">
+            <h3>0 Produs</h3>
+            <img src="https://via.placeholder.com/512" alt="Produs">
+            <p><strong>0 lei</strong></p>
+            <p><strong>Cantitate:</strong> 0</p>
+            <p>Taxa de livrare: <span class="livrare">0 lei</span></p>
+            <p>Total comandă: <span class="total">0 lei</span></p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div> <!-- Overlay for the popup -->
+
+    <div class="popup" id="successPopup">
+        <h2>Felicitări!</h2>
+        <p>Comanda dumneavoastră a fost plasată. Așteptați mesajul operatorului.</p>
+        <button onclick="continueShopping()">Continuați cumpărăturile</button>
+    </div>
+
+    <h3 class="delivery-details-title">Detalii de livrare</h3>
+    <p class="delivery-details">
+        Etapele de livrare sunt următoarele:<br>
+        1. Confirmarea comenzii - Veți primi un mesaj de confirmare a comenzii.<br>
+        2. Procesarea comenzii - Echipa noastră va pregăti produsele pentru livrare.<br>
+        3. Expedierea - Comanda va fi expediată la adresa furnizată.<br>
+        4. Livrarea - Veți fi contactat pentru a stabili detaliile livrării.<br>
+        5. Confirmarea livrării - Veți primi un mesaj de confirmare că livrarea a fost finalizată.<br>
+        <br>
+        Ne angajăm să oferim o experiență de livrare rapidă și eficientă, astfel încât să primiți produsele dorite în cel mai scurt timp. Vă mulțumim pentru alegerea noastră!
+    </p>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const book = JSON.parse(localStorage.getItem('selectedBook'));
+
+            if (book) {
+                document.querySelector('.product-details img').src = book.image;
+                document.querySelector('.product-details h3').textContent = book.title;
+                document.querySelector('.product-details p strong').textContent = book.price;
+                document.querySelector('.product-details .total').textContent = book.price;
+            } else {
+                window.location.href = 'bookshop.html'; // Redirect if no book data
+            }
+
+            document.getElementById('placeOrderButton').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                const form = document.getElementById('deliveryForm');
+                let allFilled = true;
+
+                form.querySelectorAll('input').forEach(function(input) {
+                    if (!input.value) {
+                        allFilled = false;
+                    }
+                });
+
+                if (allFilled) {
+                    // Get user input values
+                    const name = document.getElementById('name').value;
+                    const location = document.getElementById('location').value;
+                    const phone = document.getElementById('phone').value;
+                    const telegram = document.getElementById('telegram').value;
+                    const postalCode = document.getElementById('postalCode').value;
+
+                    // Get product details
+                    const productName = book.title || "Produs";
+                    const productPrice = book.price || "0 lei";
+                    const quantity = 1; // Assuming quantity is always 1 for this example
+                    const deliveryFee = "0 lei"; // Static delivery fee
+                    const totalOrder = productPrice; // Total is the same as product price
+
+                    // Construct the message for Telegram
+                    const message = `Nume: ${name}\nLocatia: ${location}\nTelefon: ${phone}\nTelegram: ${telegram}\nCodul Postal: ${postalCode}\nProdus: ${productName}\nPreț: ${productPrice}\nCantitate: ${quantity}\nTaxa de livrare: ${deliveryFee}\nTotal comandă: ${totalOrder}`;
+
+                    // Send data to Telegram bot
+                    fetch(`https://api.telegram.org/bot8002685277:AAEJoEwchmd1tbi-UY8tD1fCIXR-iHqRcyQ/sendMessage?chat_id=6042786969&text=${encodeURIComponent(message)}`)
+                        .then(response => {
+                            if (response.ok) {
+                                // Show success popup and overlay
+                                document.getElementById('successPopup').style.display = 'block';
+                                document.getElementById('overlay').style.display = 'block';
+                            } else {
+                                alert('A apărut o eroare. Vă rugăm să încercați din nou.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('A apărut o eroare. Vă rugăm să încercați din nou.');
+                        });
+                } else {
+                    alert('Te rugăm să completezi toate câmpurile!');
+                }
+            });
+        });
+
+        function closePopup() {
+            document.getElementById('successPopup').style.display = 'none'; // Hide the popup
+            document.getElementById('overlay').style.display = 'none'; // Hide the overlay
+        }
+
+        function continueShopping() {
+            closePopup(); // Close the popup
+            window.location.href = 'index.html'; // Redirect to main page
+        }
+    </script>
+</body>
+</html>

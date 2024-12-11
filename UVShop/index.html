@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bookshop</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header>
+        <span class="menu-icon">&#9776;</span>
+        <span class="search-icon" id="search-icon">&#128269;</span>
+        <input type="text" id="search-bar" placeholder="Search books..." class="search-bar" style="display: none;">
+        <span class="cancel-icon" id="cancel-icon" style="display: none;">&#10006;</span>
+        <h1 onclick="window.location.href='index.html'">Book Shop</h1>
+    </header>
+    
+    <div class="side-menu">
+        <ul>
+            <li>Inele</li>
+            <li>Brățări</li>
+            <li>Coliere</li>
+        </ul>
+    </div>
+
+    <div class="container" id="book-container"></div>
+    <div class="pagination" id="pagination-container"></div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">FAQs</a>
+        </div>
+        <p>Copyright © 2024 Book Store</p>
+    </footer>
+
+    <script>
+        const menuIcon = document.querySelector('.menu-icon');
+        const sideMenu = document.querySelector('.side-menu');
+        const overlay = document.createElement('div');
+
+        overlay.classList.add('overlay');
+        document.body.appendChild(overlay);
+
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('show');
+        }
+
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+
+        menuIcon.addEventListener('click', () => {
+            if (sideMenu.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let books = [];
+
+        async function loadBooks() {
+            try {
+                const timestamp = new Date().getTime(); 
+                const response = await fetch(`Resources/booksList.json?timestamp=${timestamp}`);
+                books = await response.json();
+                displayBooks();
+                displayPagination();
+            } catch (error) {
+                console.error('Error loading books:', error);
+            }
+        }
+
+        function displayBooks() {
+            const container = document.getElementById('book-container');
+            container.innerHTML = '';
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const booksToShow = books.slice(start, end);
+
+            booksToShow.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.classList.add('book-item');
+                bookItem.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-subtitle">${book.subTitle}</div>
+                    <div class="book-price">${book.price}</div>
+                    <button class="add-to-cart">Show</button>
+                `;
+
+                bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
+                    localStorage.setItem('selectedBook', JSON.stringify(book));
+                    window.location.href = 'bookView.html';
+                });
+
+                container.appendChild(bookItem);
+            });
+        }
+
+        function displayPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(books.length / ITEMS_PER_PAGE);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.add('pagination-button');
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    displayBooks();
+                    displayPagination();
+                });
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        const searchIcon = document.getElementById('search-icon');
+        const searchBar = document.getElementById('search-bar');
+        const cancelIcon = document.getElementById('cancel-icon');
+
+        // Function to toggle search bar visibility
+        searchIcon.addEventListener('click', () => {
+            if (searchBar.style.display === 'none') {
+                searchBar.style.display = 'inline-block';
+                searchBar.focus();
+                cancelIcon.style.display = 'inline'; // Show cancel icon
+            } else {
+                searchBar.style.display = 'none';
+                searchBar.value = ''; // Clear search input
+                cancelIcon.style.display = 'none'; // Hide cancel icon
+                currentPage = 1; // Reset to first page
+                displayBooks(); // Refresh book display
+            }
+        });
+
+        // Cancel button functionality
+        cancelIcon.addEventListener('click', () => {
+            searchBar.style.display = 'none';
+            searchBar.value = ''; // Clear search input
+            cancelIcon.style.display = 'none'; // Hide cancel icon
+            currentPage = 1; // Reset to first page
+            displayBooks(); // Refresh book display
+        });
+
+        // Filter books based on search input
+        searchBar.addEventListener('input', () => {
+            const searchTerm = searchBar.value.toLowerCase();
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchTerm) || 
+                book.subTitle.toLowerCase().includes(searchTerm)
+            );
+
+            currentPage = 1; // Reset to first page for new search
+            displayFilteredBooks(filteredBooks);
+        });
+
+        function displayFilteredBooks(filteredBooks) {
+            const container = document.getElementById('book-container');
+            container.innerHTML = '';
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const booksToShow = filteredBooks.slice(start, end);
+
+            booksToShow.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.classList.add('book-item');
+                bookItem.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-subtitle">${book.subTitle}</div>
+                    <div class="book-price">${book.price}</div>
+                    <button class="add-to-cart">Show</button>
+                `;
+
+                bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
+                    localStorage.setItem('selectedBook', JSON.stringify(book));
+                    window.location.href = 'bookView.html';
+                });
+
+                container.appendChild(bookItem);
+            });
+
+            displayPagination(filteredBooks.length); // Update pagination
+        }
+
+        loadBooks();
+    </script>
+</body>
+</html>

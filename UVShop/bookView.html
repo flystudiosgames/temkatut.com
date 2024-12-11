@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book View</title>
+    <link rel="stylesheet" href="styles/preview.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Add Bootstrap Icons -->
+</head>
+<body>
+    <header>
+        <button class="back-button" onclick="window.location.href='index.html'">Back</button>
+        <h1 onclick="window.location.href='index.html'">Book View</h1>
+    </header>
+
+    <div class="landing-container">
+        <img src="https://via.placeholder.com/800x600" alt="Book Cover">
+        <div class="book-author">Title</div>
+        <div class="book-subtitle">Subtitle will appear here</div>
+        <div class="book-price">$0.00</div>
+        <button id="buyButton" class="buy-button">Cumpara</button>
+
+        <!-- Additional Info -->
+        <div class="delivery-info">
+            <p><i class="bi bi-check-circle info-icon"></i><strong>In stoc</strong></p>
+            <p><i class="bi bi-calendar-check info-icon"></i><strong>Estimare livrare:</strong> Luni - Vineri</p>
+            <p><i class="bi bi-box-arrow-in-down-left info-icon"></i><strong>Retur gratuit:</strong> în 14 zile</p>
+            <p><i class="bi bi-truck info-icon"></i><strong>Verificare colet:</strong> înainte de plată</p>
+        </div>
+
+        <div class="additional-info">
+            <strong>Descriere</strong>
+            <div class="book-description">Description will appear here.</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">FAQs</a>
+        </div>
+        <p>Copyright © 2024 Book Store</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const book = JSON.parse(localStorage.getItem('selectedBook'));
+
+            if (book) {
+                document.querySelector('.landing-container img').src = book.image;
+                document.querySelector('.book-author').textContent = book.title;
+                document.querySelector('.book-subtitle').textContent = book.subTitle;
+                document.querySelector('.book-price').textContent = book.price;
+                document.querySelector('.book-description').textContent = book.productDescription;
+            } else {
+                window.location.href = 'bookshop.html'; // Redirect if no book data
+            }
+
+            document.getElementById('buyButton').addEventListener('click', () => {
+                window.location.href = 'livrare.html'; // Redirect to delivery page
+            });
+        });
+    </script>
+</body>
+</html>
