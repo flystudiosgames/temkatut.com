@@ -399,9 +399,14 @@
             <div class="book-subtitle">${book.subTitle}</div>
             <div class="book-price">${book.price}</div>
             <input type="number" class="quantity-input" value="1" min="1" style="width: 50px; margin-bottom: 5px;">
-            <button class="add-to-cart">Show</button>
             <button class="add-to-cart add-to-cart-btn">Add To Cart</button>
         `;
+
+                // Adaugă un event listener pentru întregul element bookItem
+                bookItem.addEventListener('click', () => {
+                    localStorage.setItem('selectedBook', JSON.stringify(book));
+                    window.location.href = 'bookView.html';
+                });
                 bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
                     localStorage.setItem('selectedBook', JSON.stringify(book));
                     window.location.href = 'bookView.html';
@@ -527,4 +532,5 @@
         loadBooks();
     </script>
 </body>
+
 </html>
