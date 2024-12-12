@@ -155,7 +155,7 @@
         max-width: 100%;
         height: auto;
         border-radius: 4px;
-        margin-bottom: 10px;
+        margin-bottom: auto;
     }
 
     .book-title {
@@ -327,6 +327,33 @@
         color: #888;
         text-align: center;
     }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .quantity-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+        transition: background-color 0.3s;
+    }
+
+    .quantity-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .quantity-display {
+        font-size: 16px;
+        width: 30px;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -394,28 +421,41 @@
                 const bookItem = document.createElement('div');
                 bookItem.classList.add('book-item');
                 bookItem.innerHTML = `
-            <img src="${book.image}" alt="${book.title}">
-            <div class="book-title">${book.title}</div>
-            <div class="book-subtitle">${book.subTitle}</div>
-            <div class="book-price">${book.price}</div>
-            <input type="number" class="quantity-input" value="1" min="1" style="width: 50px; margin-bottom: 5px;">
-            <button class="add-to-cart add-to-cart-btn">Add To Cart</button>
-        `;
+                <img src="${book.image}" alt="${book.title}">
+                <div class="book-title">${book.title}</div>
+                <div class="book-subtitle">${book.subTitle}</div>
+                <div class="book-price">${book.price}</div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="changeQuantity('${book.title}', -1)">-</button>
+                    <span class="quantity-display" id="quantity-${book.title.replace(/\s+/g, '')}">1</span>
+                    <button class="quantity-btn" onclick="changeQuantity('${book.title}', 1)">+</button>
+                </div>
+                <button class="add-to-cart">Add To Cart</button>
+            `;
 
-                // Adaugă un event listener pentru întregul element bookItem
-                bookItem.addEventListener('click', () => {
+                // Only add click listeners to the image and title for opening book details
+                bookItem.querySelector('img').addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the event from bubbling up
                     localStorage.setItem('selectedBook', JSON.stringify(book));
                     window.location.href = 'bookView.html';
                 });
-                bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
+
+                bookItem.querySelector('.book-title').addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the event from bubbling up
                     localStorage.setItem('selectedBook', JSON.stringify(book));
                     window.location.href = 'bookView.html';
                 });
-                bookItem.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(book, bookItem.querySelector('.quantity-input').value));
+
+                // Event listener for adding to cart
+                bookItem.querySelector('.add-to-cart').addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the event from bubbling up to the bookItem click event
+                    const quantity = parseInt(document.getElementById(`quantity-${book.title.replace(/\s+/g, '')}`).innerText);
+                    addToCart(book, quantity);
+                });
+
                 container.appendChild(bookItem);
             });
         }
-
 
         function displayPagination() {
             const paginationContainer = document.getElementById('pagination-container');
@@ -453,7 +493,6 @@
             cartCount += quantity; // Increment cart count by quantity added
             showNotification(`${book.title} added to cart!`);
             updateCartDisplay(); // Update the cart display
-
         }
 
         function updateCartDisplay() {
@@ -470,12 +509,12 @@
                 const cartItem = document.createElement('li');
                 cartItem.classList.add('cart-item');
                 cartItem.innerHTML = `
-            <img src="${book.image}" alt="${book.title}">
-            <div class="cart-item-details">
-                <div>${book.title} x${book.quantity}</div>
-                <div class="cart-item-price">${book.price}</div>
-            </div>
-            <span class="remove-item" onclick="removeFromCart('${bookTitle}')">&#10006;</span>`;
+                <img src="${book.image}" alt="${book.title}">
+                <div class="cart-item-details">
+                    <div>${book.title} x${book.quantity}</div>
+                    <div class="cart-item-price">${book.price}</div>
+                </div>
+                <span class="remove-item" onclick="removeFromCart('${bookTitle}')">&#10006;</span>`;
 
                 // Calculate total price
                 const itemTotal = parseFloat(book.price.replace('$', '')) * book.quantity; // Assume price is in format $X.XX
@@ -511,9 +550,9 @@
             window.location.href = 'livrare.html';
         });
 
-        function showNotification(bookTitle, quantity) {
+        function showNotification(bookTitle) {
             const notification = document.getElementById('notification');
-            notification.textContent = `${quantity} of ${bookTitle} added to cart!`;
+            notification.textContent = `${bookTitle} added to cart!`;
             notification.style.display = 'block';
             setTimeout(() => notification.style.display = 'none', 3000);
         }
@@ -530,7 +569,21 @@
         overlay.addEventListener('click', () => sideMenu.classList.remove('open'));
 
         loadBooks();
+
+        function changeQuantity(bookTitle, change) {
+            const quantityDisplay = document.getElementById(`quantity-${bookTitle.replace(/\s+/g, '')}`);
+            let currentQuantity = parseInt(quantityDisplay.innerText);
+
+            currentQuantity += change;
+
+            if (currentQuantity < 1) {
+                currentQuantity = 1; // Minimum quantity is 1
+            }
+
+            quantityDisplay.innerText = currentQuantity;
+        }
     </script>
+
 </body>
 
 </html>
