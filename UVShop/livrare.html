@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livrare</title>
-    <link rel="stylesheet" href="styles/preview.css"> <!-- Link to the shared CSS -->
+    <link rel="stylesheet" href="styles/previewf.css"> <!-- Link to the shared CSS -->
     <style>
         /* General styles */
         body {
@@ -129,23 +129,6 @@
             color: #27ae60; /* Green for delivery and total */
         }
 
-        /* Back button */
-        .back-button {
-            background-color: #ff3b3b; /* Red background for back button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #c0392b; /* Darker red on hover */
-        }
-
         /* Popup styles */
         .popup {
             display: none; /* Hidden by default */
@@ -228,7 +211,7 @@
 </head>
 <body>
     <header>
-        <button class="back-button" onclick="window.location.href='bookview.html'">Back</button>
+        <button class="back-button" onclick="window.location.href='bookView.html'">Back</button>
         <h1 onclick="window.location.href='index.html'">Livrare</h1>
     </header>
 
@@ -273,7 +256,7 @@
         </div>
     </div>
 
-    <div class="overlay" id="overlay"></div> <!-- Overlay for the popup -->
+    <div class="overlay" id="overlay"></div>
 
     <div class="popup" id="successPopup">
         <h2>Felicitări!</h2>
@@ -284,16 +267,8 @@
     <h3 class="delivery-details-title">Detalii de livrare</h3>
     <p class="delivery-details">
         Etapele de livrare sunt următoarele:<br>
-        1. Confirmarea comenzii - Veți primi un mesaj de confirmare a comenzii.<br>
-        2. Procesarea comenzii - Echipa noastră va pregăti produsele pentru livrare.<br>
-        3. Expedierea - Comanda va fi expediată la adresa furnizată.<br>
-        4. Livrarea - Veți fi contactat pentru a stabili detaliile livrării.<br>
-        5. Confirmarea livrării - Veți primi un mesaj de confirmare că livrarea a fost finalizată.<br>
-        <br>
-        Ne angajăm să oferim o experiență de livrare rapidă și eficientă, astfel încât să primiți produsele dorite în cel mai scurt timp. Vă mulțumim pentru alegerea noastră!
+        1. Confirmarea comenzii Veți primi un mesaj de confirmare a comenzii.<br>
     </p>
-    
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const book = JSON.parse(localStorage.getItem('selectedBook'));
@@ -367,6 +342,7 @@
             closePopup(); // Close the popup
             window.location.href = 'index.html'; // Redirect to main page
         }
+        
     </script>
 </body>
 </html>

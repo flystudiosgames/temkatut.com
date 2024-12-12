@@ -1,20 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Bookshop</title>
-    <link rel="stylesheet" href="styles/styles.css">
 </head>
+
+<style>
+    /* Stil general */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        /* background for the body */
+    }
+
+    /* Header */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Align items to the center */
+        background-color: #f1f1f3;
+        color: rgb(19, 19, 19);
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+
+    header h1 {
+        margin: 0;
+        cursor: pointer;
+        text-align: center;
+        flex-grow: 1;
+        /* Make header title take up available space */
+    }
+
+    header .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+    /* Container */
+    .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Două coloane de dimensiuni egale */
+        gap: 20px;
+        /* Spațiu între elemente */
+        padding: 80px 20px;
+        /* Offset pentru header */
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #f1f1f3;
+        color: rgb(19, 19, 19);
+    }
+
+    footer .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 10px;
+    }
+
+    footer .footer-links a {
+        color: rgb(19, 19, 19);
+        text-decoration: none;
+    }
+
+    footer .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* Stil pentru overlay */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;
+    }
+
+    /* Stil pentru meniul lateral */
+    .side-menu {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #f1f1f3;
+        /* Color for the side menu */
+        color: #333;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        padding-top: 60px;
+    }
+
+    .side-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .side-menu ul li {
+        padding: 15px 20px;
+        background-color: #ffffff;
+        /* Background for menu items */
+        margin: 5px 0;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .side-menu ul li:hover {
+        background-color: #dcdde3;
+        /* Hover effect for menu items */
+    }
+
+    .side-menu.open {
+        left: 0;
+    }
+
+    .overlay.show {
+        display: block;
+    }
+
+    /* Stil pentru cărți */
+    .book-item {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .book-title {
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .book-subtitle {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .book-price {
+        color: #27ae60;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .add-to-cart {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .add-to-cart:hover {
+        background-color: #0056b3;
+    }
+
+    /* Pagination */
+    .pagination {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .pagination-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        margin: 0 5px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .pagination-button.active {
+        background-color: #0056b3;
+    }
+
+    .pagination-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* CSS existent + stiluri adăugate pentru meniul din dreapta */
+    .cart-icon {
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 30px;
+    }
+
+    .side-menu-right {
+        position: fixed;
+        top: 0;
+        right: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #f1f1f3;
+        color: #333;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        padding-top: 60px;
+        overflow-y: auto;
+        /* Make the cart scrollable */
+    }
+
+    .side-menu-right ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .side-menu-right ul li {
+        padding: 15px 20px;
+        background-color: #ffffff;
+        margin: 5px 0;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .side-menu-right ul li:hover {
+        background-color: #dcdde3;
+    }
+
+    .side-menu-right.open {
+        right: 0;
+    }
+
+    .add-to-cart {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 5px;
+        /* Added margin to separate buttons */
+    }
+
+    .add-to-cart:hover {
+        background-color: #0056b3;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .cart-item .cart-item-details {
+        flex-grow: 1;
+    }
+
+    .cart-item .cart-item-price {
+        font-weight: bold;
+    }
+
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+        /* Initially hidden */
+        z-index: 1002;
+    }
+
+    #cart-summary {
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #ddd;
+    }
+
+    #total-amount {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #empty-cart-message {
+        color: #888;
+        text-align: center;
+    }
+</style>
+
 <body>
     <header>
         <span class="menu-icon">&#9776;</span>
-        <span class="search-icon" id="search-icon">&#128269;</span>
-        <input type="text" id="search-bar" placeholder="Search books..." class="search-bar" style="display: none;">
-        <span class="cancel-icon" id="cancel-icon" style="display: none;">&#10006;</span>
         <h1 onclick="window.location.href='index.html'">Book Shop</h1>
+        <span class="cart-icon" id="cart-icon">&#128722;</span>
     </header>
-    
+
     <div class="side-menu">
         <ul>
             <li>Inele</li>
@@ -23,54 +344,38 @@
         </ul>
     </div>
 
+    <div class="side-menu-right" id="cart-menu">
+        <div id="cart-summary">
+            <div id="total-amount">Total: $0</div>
+            <button id="confirm-order" style="display: none;">Confirm Order</button>
+            <div id="empty-cart-message" style="display: none;">No selected items</div>
+        </div>
+        <ul id="cart-items">
+            <!-- Items will be dynamically added here -->
+        </ul>
+    </div>
+
     <div class="container" id="book-container"></div>
     <div class="pagination" id="pagination-container"></div>
 
-    <footer>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">FAQs</a>
-        </div>
-        <p>Copyright © 2024 Book Store</p>
-    </footer>
+    <div class="notification" id="notification">Item added to cart!</div>
 
     <script>
         const menuIcon = document.querySelector('.menu-icon');
         const sideMenu = document.querySelector('.side-menu');
         const overlay = document.createElement('div');
-
         overlay.classList.add('overlay');
         document.body.appendChild(overlay);
-
-        function openMenu() {
-            sideMenu.classList.add('open');
-            overlay.classList.add('show');
-        }
-
-        function closeMenu() {
-            sideMenu.classList.remove('open');
-            overlay.classList.remove('show');
-        }
-
-        menuIcon.addEventListener('click', () => {
-            if (sideMenu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-
-        overlay.addEventListener('click', closeMenu);
 
         const ITEMS_PER_PAGE = 6;
         let currentPage = 1;
         let books = [];
+        let cartCount = 0; // Initialize cart count
 
+        // Load books and initialize display
         async function loadBooks() {
             try {
-                const timestamp = new Date().getTime(); 
-                const response = await fetch(`Resources/booksList.json?timestamp=${timestamp}`);
+                const response = await fetch(`Resources/booksList.json?timestamp=${Date.now()}`);
                 books = await response.json();
                 displayBooks();
                 displayPagination();
@@ -79,32 +384,33 @@
             }
         }
 
-        function displayBooks() {
+        function displayBooks(filteredBooks = books) {
             const container = document.getElementById('book-container');
             container.innerHTML = '';
             const start = (currentPage - 1) * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
-            const booksToShow = books.slice(start, end);
+            const booksToShow = filteredBooks.slice(start, start + ITEMS_PER_PAGE);
 
             booksToShow.forEach(book => {
                 const bookItem = document.createElement('div');
                 bookItem.classList.add('book-item');
                 bookItem.innerHTML = `
-                    <img src="${book.image}" alt="${book.title}">
-                    <div class="book-title">${book.title}</div>
-                    <div class="book-subtitle">${book.subTitle}</div>
-                    <div class="book-price">${book.price}</div>
-                    <button class="add-to-cart">Show</button>
-                `;
-
+            <img src="${book.image}" alt="${book.title}">
+            <div class="book-title">${book.title}</div>
+            <div class="book-subtitle">${book.subTitle}</div>
+            <div class="book-price">${book.price}</div>
+            <input type="number" class="quantity-input" value="1" min="1" style="width: 50px; margin-bottom: 5px;">
+            <button class="add-to-cart">Show</button>
+            <button class="add-to-cart add-to-cart-btn">Add To Cart</button>
+        `;
                 bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
                     localStorage.setItem('selectedBook', JSON.stringify(book));
                     window.location.href = 'bookView.html';
                 });
-
+                bookItem.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(book, bookItem.querySelector('.quantity-input').value));
                 container.appendChild(bookItem);
             });
         }
+
 
         function displayPagination() {
             const paginationContainer = document.getElementById('pagination-container');
@@ -115,9 +421,7 @@
                 const button = document.createElement('button');
                 button.textContent = i;
                 button.classList.add('pagination-button');
-                if (i === currentPage) {
-                    button.classList.add('active');
-                }
+                if (i === currentPage) button.classList.add('active');
                 button.addEventListener('click', () => {
                     currentPage = i;
                     displayBooks();
@@ -127,74 +431,98 @@
             }
         }
 
-        const searchIcon = document.getElementById('search-icon');
-        const searchBar = document.getElementById('search-bar');
-        const cancelIcon = document.getElementById('cancel-icon');
+        let cartItems = {}; // Use an object to store cart items by title
 
-        // Function to toggle search bar visibility
-        searchIcon.addEventListener('click', () => {
-            if (searchBar.style.display === 'none') {
-                searchBar.style.display = 'inline-block';
-                searchBar.focus();
-                cancelIcon.style.display = 'inline'; // Show cancel icon
+        function addToCart(book, quantity) {
+            quantity = parseInt(quantity); // Ensure quantity is an integer
+            const bookTitle = book.title;
+
+            if (cartItems[bookTitle]) {
+                // If the book is already in the cart, update the quantity
+                cartItems[bookTitle].quantity += quantity;
             } else {
-                searchBar.style.display = 'none';
-                searchBar.value = ''; // Clear search input
-                cancelIcon.style.display = 'none'; // Hide cancel icon
-                currentPage = 1; // Reset to first page
-                displayBooks(); // Refresh book display
+                // Otherwise, add it to the cart
+                cartItems[bookTitle] = { ...book, quantity }; // Store book details along with quantity
             }
-        });
 
-        // Cancel button functionality
-        cancelIcon.addEventListener('click', () => {
-            searchBar.style.display = 'none';
-            searchBar.value = ''; // Clear search input
-            cancelIcon.style.display = 'none'; // Hide cancel icon
-            currentPage = 1; // Reset to first page
-            displayBooks(); // Refresh book display
-        });
+            cartCount += quantity; // Increment cart count by quantity added
+            showNotification(`${book.title} added to cart!`);
+            updateCartDisplay(); // Update the cart display
 
-        // Filter books based on search input
-        searchBar.addEventListener('input', () => {
-            const searchTerm = searchBar.value.toLowerCase();
-            const filteredBooks = books.filter(book => 
-                book.title.toLowerCase().includes(searchTerm) || 
-                book.subTitle.toLowerCase().includes(searchTerm)
-            );
-
-            currentPage = 1; // Reset to first page for new search
-            displayFilteredBooks(filteredBooks);
-        });
-
-        function displayFilteredBooks(filteredBooks) {
-            const container = document.getElementById('book-container');
-            container.innerHTML = '';
-            const start = (currentPage - 1) * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
-            const booksToShow = filteredBooks.slice(start, end);
-
-            booksToShow.forEach(book => {
-                const bookItem = document.createElement('div');
-                bookItem.classList.add('book-item');
-                bookItem.innerHTML = `
-                    <img src="${book.image}" alt="${book.title}">
-                    <div class="book-title">${book.title}</div>
-                    <div class="book-subtitle">${book.subTitle}</div>
-                    <div class="book-price">${book.price}</div>
-                    <button class="add-to-cart">Show</button>
-                `;
-
-                bookItem.querySelector('.add-to-cart').addEventListener('click', () => {
-                    localStorage.setItem('selectedBook', JSON.stringify(book));
-                    window.location.href = 'bookView.html';
-                });
-
-                container.appendChild(bookItem);
-            });
-
-            displayPagination(filteredBooks.length); // Update pagination
         }
+
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmount = document.getElementById('total-amount');
+            const confirmOrderButton = document.getElementById('confirm-order');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+            let total = 0; // Initialize total variable
+
+            for (const bookTitle in cartItems) {
+                const book = cartItems[bookTitle];
+                const cartItem = document.createElement('li');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+            <img src="${book.image}" alt="${book.title}">
+            <div class="cart-item-details">
+                <div>${book.title} x${book.quantity}</div>
+                <div class="cart-item-price">${book.price}</div>
+            </div>
+            <span class="remove-item" onclick="removeFromCart('${bookTitle}')">&#10006;</span>`;
+
+                // Calculate total price
+                const itemTotal = parseFloat(book.price.replace('$', '')) * book.quantity; // Assume price is in format $X.XX
+                total += itemTotal; // Update total
+
+                cartItemsContainer.appendChild(cartItem);
+            }
+
+            // Update the total amount
+            totalAmount.textContent = `Total: $${total.toFixed(2)}`;
+
+            // Show or hide the confirm order button and empty message
+            if (cartCount > 0) {
+                confirmOrderButton.style.display = 'block'; // Show button
+                emptyCartMessage.style.display = 'none'; // Hide empty message
+            } else {
+                confirmOrderButton.style.display = 'none'; // Hide button
+                emptyCartMessage.style.display = 'block'; // Show empty message
+            }
+        }
+
+        function removeFromCart(bookTitle) {
+            if (cartItems[bookTitle]) {
+                cartCount -= cartItems[bookTitle].quantity; // Decrease cart count
+                delete cartItems[bookTitle]; // Remove item from cart
+                updateCartDisplay(); // Refresh cart display
+            }
+        }
+
+        // Add event listener for "Confirm Order" button
+        document.getElementById('confirm-order').addEventListener('click', () => {
+            // Redirect to the delivery page
+            window.location.href = 'livrare.html';
+        });
+
+        function showNotification(bookTitle, quantity) {
+            const notification = document.getElementById('notification');
+            notification.textContent = `${quantity} of ${bookTitle} added to cart!`;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 3000);
+        }
+
+        const cartIcon = document.getElementById('cart-icon');
+        const cartMenu = document.getElementById('cart-menu');
+        cartIcon.addEventListener('click', () => cartMenu.classList.toggle('open'));
+
+        menuIcon.addEventListener('click', () => {
+            sideMenu.classList.toggle('open');
+            overlay.classList.toggle('show');
+        });
+
+        overlay.addEventListener('click', () => sideMenu.classList.remove('open'));
 
         loadBooks();
     </script>
