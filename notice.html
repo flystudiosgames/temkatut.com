@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificare Primita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Notificare Primita</h1>
+        <p id="message">Aici va fi mesajul de notificare.</p>
+        <div class="footer">
+            <p>© 2024 Temkatut.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Funcția pentru a prelua parametrii din URL
+        function getQueryParams() {
+            const params = {};
+            window.location.search.substring(1).split("&").forEach(param => {
+                const [key, value] = param.split("=");
+                params[decodeURIComponent(key)] = decodeURIComponent(value);
+            });
+            return params;
+        }
+
+        // Obține parametrii din URL
+        const params = getQueryParams();
+
+        // Verifică dacă am primit parametrii așteptați
+        if (params.o && params.oa && params.m && params.s) {
+            document.getElementById("message").textContent = "Am primit notificarea pentru comanda ID: " + params.o + " cu suma de: " + params.oa + " " + params.m;
+        } else {
+            document.getElementById("message").textContent = "Nu am primit informațiile complete.";
+        }
+    </script>
+</body>
+</html>

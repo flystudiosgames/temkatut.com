@@ -69,41 +69,35 @@
     </div>
 
     <script>
-        // Detalii Merchant FreeKassa
         const merchantId = "57741"; // ID-ul comerciantului
         const secretWord1 = "?zzbUG]VLsIf4!m"; // Cuvântul secret 1
-        const apiKey = "0e1ca147c83c3cfd3edeed0e67a6394b"; // Cheia API a comerciantului
         const amount = 10.00; // Suma de plată
-        const currency = "USD"; // Moneda
         const orderId = `Order_${Date.now()}`; // Generare ID comandă unic
         const testMode = 1; // Activare modul test (1 = activat)
 
-        // Funcție pentru generarea hash-ului MD5
         function md5(string) {
             return CryptoJS.MD5(string).toString(); // Folosind CryptoJS pentru hashing
         }
 
-        // Generare semnătură plată
         function generateSignature() {
             const stringToHash = `${merchantId}:${amount}:${secretWord1}:${orderId}`;
+            console.log(`String to hash: ${stringToHash}`); // Afișează stringul pentru debug
             return md5(stringToHash); // Generare hash MD5
         }
 
-        // Creare link de plată
         function createPaymentLink() {
             const signature = generateSignature();
-            const paymentUrl = `https://pay.freekassa.ru/?m=${merchantId}&oa=${amount}&currency=${currency}&o=${orderId}&s=${signature}&test=${testMode}`;
+            const paymentUrl = `https://pay.freekassa.ru/?m=${merchantId}&oa=${amount}&currency=USD&o=${orderId}&s=${signature}&test=${testMode}`;
+            console.log(`Payment URL: ${paymentUrl}`); // Afișează URL-ul pentru debug
             return paymentUrl;
         }
 
-        // Event Listener pentru Buton
         document.getElementById("pay-button").addEventListener("click", function () {
             const paymentUrl = createPaymentLink();
             window.location.href = paymentUrl; // Redirecționare către pagina de plată FreeKassa
         });
     </script>
 
-    <!-- Include CryptoJS pentru hashing MD5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 </body>
 
