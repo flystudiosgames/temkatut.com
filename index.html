@@ -1,107 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page - FreeKassa</title>
+    <title>Plata Produs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
+            background: white;
             padding: 20px;
-            border: 1px solid #ccc;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
             color: #333;
         }
 
-        button {
+        p {
+            color: #555;
+        }
+
+        #pay-button {
+            background-color: #007BFF;
+            color: white;
             padding: 10px 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
+        #pay-button:hover {
             background-color: #0056b3;
         }
 
         .footer {
             margin-top: 20px;
             font-size: 14px;
-            color: #777;
+            color: #888;
         }
     </style>
-    <!-- Import CryptoJS pentru generarea MD5 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
+
 <body>
     <div class="container">
-        <h1>Cumpără produsul nostru pentru 10$</h1>
-        <p>Apasă pe butonul de mai jos pentru a efectua o plată de test utilizând FreeKassa.</p>
+        <h1>Cumpără Produs</h1>
+        <p>Apasă pe butonul de mai jos pentru a cumpăra produsul la prețul de 10$.</p>
+        <button id="pay-button">Plătește cu FreeKassa</button>
 
-        <!-- Form pentru integrarea cu FreeKassa -->
-        <form id="payment-form" action="https://pay.freekassa.ru/" method="GET">
-            <!-- ID-ul Merchant-ului -->
-            <input type="hidden" name="m" id="merchant-id" value="0e1ca147c83c3cfd3edeed0e67a6394b">
-            
-            <!-- Suma -->
-            <input type="hidden" name="oa" id="amount" value="10.00">
-            
-            <!-- Valuta -->
-            <input type="hidden" name="currency" id="currency" value="USD">
-            
-            <!-- Descrierea comenzii -->
-            <input type="hidden" name="o" id="order-id" value="TestOrder123">
-            
-            <!-- Mod de testare -->
-            <input type="hidden" name="test" value="1">
-            
-            <!-- Semnătura digitală -->
-            <input type="hidden" name="s" id="signature" value="">
-
-            <!-- Buton pentru a iniția plata -->
-            <button type="button" onclick="generateSignatureAndSubmit()">Cumpără acum pentru 10$</button>
-        </form>
-    </div>
-
-    <div class="footer">
-        <a href="https://freekassa.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://cdn.freekassa.com/banners/big-dark-1.png"
-                title="Receiving payments on the site for individuals, etc.">
-        </a>
+        <div class="footer">
+            <p>© 2024 Temkatut.com</p>
+        </div>
     </div>
 
     <script>
-        // Funcția pentru generarea semnăturii MD5
-        function generateSignatureAndSubmit() {
-            // Preia valorile necesare din formular
-            const merchantId = document.getElementById("merchant-id").value;
-            const amount = document.getElementById("amount").value;
-            const secretKey = "?zzbUG]VLsIf4!m"; // Înlocuiește cu cheia secretă
-            const orderId = document.getElementById("order-id").value;
+        // Detalii Merchant FreeKassa
+        const merchantId = "57741"; // ID-ul comerciantului
+        const secretWord1 = "?zzbUG]VLsIf4!m"; // Cuvântul secret 1
+        const apiKey = "0e1ca147c83c3cfd3edeed0e67a6394b"; // Cheia API a comerciantului
+        const amount = 10.00; // Suma de plată
+        const currency = "USD"; // Moneda
+        const orderId = `Order_${Date.now()}`; // Generare ID comandă unic
+        const testMode = 1; // Activare modul test (1 = activat)
 
-            // Generarea semnăturii folosind CryptoJS MD5
-            const signature = CryptoJS.MD5(`${merchantId}:${amount}:${secretKey}:${orderId}`).toString();
-
-            // Setează semnătura în câmpul hidden din formular
-            document.getElementById("signature").value = signature;
-
-            // Trimite formularul
-            document.getElementById("payment-form").submit();
+        // Funcție pentru generarea hash-ului MD5
+        function md5(string) {
+            return CryptoJS.MD5(string).toString(); // Folosind CryptoJS pentru hashing
         }
+
+        // Generare semnătură plată
+        function generateSignature() {
+            const stringToHash = `${merchantId}:${amount}:${secretWord1}:${orderId}`;
+            return md5(stringToHash); // Generare hash MD5
+        }
+
+        // Creare link de plată
+        function createPaymentLink() {
+            const signature = generateSignature();
+            const paymentUrl = `https://pay.freekassa.ru/?m=${merchantId}&oa=${amount}&currency=${currency}&o=${orderId}&s=${signature}&test=${testMode}`;
+            return paymentUrl;
+        }
+
+        // Event Listener pentru Buton
+        document.getElementById("pay-button").addEventListener("click", function () {
+            const paymentUrl = createPaymentLink();
+            window.location.href = paymentUrl; // Redirecționare către pagina de plată FreeKassa
+        });
     </script>
+
+    <!-- Include CryptoJS pentru hashing MD5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 </body>
+
 </html>
