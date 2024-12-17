@@ -1,1 +1,107 @@
-c:\Users\flywi\Desktop\Traffic Wolf\temkatut.com\temkatut.com\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - FreeKassa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+    <!-- Import CryptoJS pentru generarea MD5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Cumpără produsul nostru pentru 10$</h1>
+        <p>Apasă pe butonul de mai jos pentru a efectua o plată de test utilizând FreeKassa.</p>
+
+        <!-- Form pentru integrarea cu FreeKassa -->
+        <form id="payment-form" action="https://pay.freekassa.ru/" method="GET">
+            <!-- ID-ul Merchant-ului -->
+            <input type="hidden" name="m" id="merchant-id" value="0e1ca147c83c3cfd3edeed0e67a6394b">
+            
+            <!-- Suma -->
+            <input type="hidden" name="oa" id="amount" value="10.00">
+            
+            <!-- Valuta -->
+            <input type="hidden" name="currency" id="currency" value="USD">
+            
+            <!-- Descrierea comenzii -->
+            <input type="hidden" name="o" id="order-id" value="TestOrder123">
+            
+            <!-- Mod de testare -->
+            <input type="hidden" name="test" value="1">
+            
+            <!-- Semnătura digitală -->
+            <input type="hidden" name="s" id="signature" value="">
+
+            <!-- Buton pentru a iniția plata -->
+            <button type="button" onclick="generateSignatureAndSubmit()">Cumpără acum pentru 10$</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <a href="https://freekassa.com" target="_blank" rel="noopener noreferrer">
+            <img src="https://cdn.freekassa.com/banners/big-dark-1.png"
+                title="Receiving payments on the site for individuals, etc.">
+        </a>
+    </div>
+
+    <script>
+        // Funcția pentru generarea semnăturii MD5
+        function generateSignatureAndSubmit() {
+            // Preia valorile necesare din formular
+            const merchantId = document.getElementById("merchant-id").value;
+            const amount = document.getElementById("amount").value;
+            const secretKey = "?zzbUG]VLsIf4!m"; // Înlocuiește cu cheia secretă
+            const orderId = document.getElementById("order-id").value;
+
+            // Generarea semnăturii folosind CryptoJS MD5
+            const signature = CryptoJS.MD5(`${merchantId}:${amount}:${secretKey}:${orderId}`).toString();
+
+            // Setează semnătura în câmpul hidden din formular
+            document.getElementById("signature").value = signature;
+
+            // Trimite formularul
+            document.getElementById("payment-form").submit();
+        }
+    </script>
+</body>
+</html>
